@@ -42,6 +42,9 @@ I deleted it to create other test budgets.
 
 
 ### ✅ Generated AWS Credentials
+- Generated Access Keys
+- Gave it a description of "My New Access Key"
+- Downloaded and saved the .csv file
 
 ### ✅ Used and Tested CloudShell
 
@@ -54,12 +57,18 @@ I deleted it to create other test budgets.
 
 <img src="screenshots/week0/week0_credentials.png" width="600">
 
+#### Bugs and Fixes
+For this task I ran through some bugs
+- First bug was that the terminal wis giving me the wrong outputs after running `aws budgets create-budget`. I solved this bug by correctly naming my `budget-notifiactions-with-subscriber.json` file.
+- After solving this bug I was still reciving the wrong out put from the terminal, after looking at the error, I found out that I hadn't properly exported my `ACCOUNT_ID` to an environment variable. I solved this bug by running the command `export ACCOUNT_ID = $(aws sts get-caller-identiy --query Account --output text)`
+
 ### ✅ Used the CLI from Gitpod to create a Budget and a Billing Alarm
+
+- Created an sns topic from the CLI using gitpod with the command `aws sns create-topic --name CLI-generated-billing-alarm`
 
 **Proof is in the commits made to the code 🚀**
 
 - **SNS Confirmation**
-
 <img src="screenshots/week0/week0_7.png" width="600" >
 
 - **CloudWatch Alarm**
