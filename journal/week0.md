@@ -26,33 +26,49 @@ All these Individual tasks will be discussed below. I will state my process of c
 - Created new User and added that user to an 'admin' user group
 - Added MFA for my new 'admin' user
 
-```
-PUT PISHURE HERE
-```
+<img src="screenshots/week0/week0_1.png" >
 
 ### ✅ Set up 2 AWS Budget
 
 For this task I created 2 separate Budgets, one for Credits use and the other was created using the CLI and covers all forms of spending.
 
-```
-PUT PISHURE HERE
-```
+<img src="screenshots/week0/week0_2.png" >
+
+**As proof, here is an alert I got after creating a ZeroSpend Budget**
+
+<img src="screenshots/week0/week0_3.png" >
+
+I deleted it to create other test budgets.
+
 
 ### ✅ Generated AWS Credentials
 
 ### ✅ Used and Tested CloudShell
 
-```
-PUT PISHURE HERE
-```
+<img src="screenshots/week0/week0_4.png" width="600">
+
+
 ### ✅ Installed the AWS CLI on Gitpod and added my AWS Credentials
 
-```
-PUT PISHURE HERE
-```
+<img src="screenshots/week0/week0_5.png" width="600">
+
+<img src="screenshots/week0/week0_credentials.png" width="600">
 
 ### ✅ Used the CLI from Gitpod to create a Budget and a Billing Alarm
 
-Proof is in the commits made to the code.
+**Proof is in the commits made to the code 🚀**
+
+- **SNS Confirmation**
+
+<img src="screenshots/week0/week0_7.png" width="600" >
+
+- **CloudWatch Alarm**
+<img src="screenshots/week0/week0_8.png" >
 
 ### ✅ Created a Conceptual Architecture Diagram on a Napkin
+<img src="screenshots/week0/week0_9.jpeg" >
+
+### ✅ Created an architectural diagram the CI/CD logical pipeline in Lucid Charts
+<img src="screenshots/week0/week0_10.png" >
+
+
