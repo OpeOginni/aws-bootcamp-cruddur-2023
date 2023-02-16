@@ -55,7 +55,10 @@ For this task I ran through some Issue
 
 - Created an sns topic from the CLI using gitpod with the command `aws sns create-topic --name CLI-generated-billing-alarm`
 
-**Proof is in the commits made to the code 🚀**
+**Proof is in the commits made to the code 🚀** 
+
+- [Code for Alarm](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/blob/main/aws/json/alarm-config.json)
+- [Code for Budget](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/blob/main/aws/json/alarm-config.json)
 
 - **SNS Confirmation**
 <img src="screenshots/week0/week0_7.png" width="600" >
