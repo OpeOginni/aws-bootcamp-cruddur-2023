@@ -13,9 +13,6 @@ These are the tasks I completed during this week.
 ✅ Used the CLI from Gitpod to create a Budget and a Billing Alarm
 ✅ Created a Conceptual Architecture Diagram on a Napkin
 ✅ Created an architectural diagram the CI/CD logical pipeline in Lucid Charts
-✅ Reviewed all the questions of each pillars in the Well Architected Tool
-✅ Did some research on the technical and service limits of specific services and how they could impact the technical path for technical flexibility
-✅ Open a support ticket and request a service limit
 ✅ Used EventBridge to hookup Health Dashboard to SNS and send notification when there is a service health issue
 ```
 All these Individual tasks will be discussed below. I will state my process of completing the task, add screenshot proofs and give details about some issues I came across and how I debugged these issues for tasks that requires these information.
@@ -57,10 +54,10 @@ I deleted it to create other test budgets.
 
 <img src="screenshots/week0/week0_credentials.png" width="600">
 
-#### Bugs and Fixes
-For this task I ran through some bugs
-- First bug was that the terminal wis giving me the wrong outputs after running `aws budgets create-budget`. I solved this bug by correctly naming my `budget-notifiactions-with-subscriber.json` file.
-- After solving this bug I was still reciving the wrong out put from the terminal, after looking at the error, I found out that I hadn't properly exported my `ACCOUNT_ID` to an environment variable. I solved this bug by running the command `export ACCOUNT_ID = $(aws sts get-caller-identiy --query Account --output text)`
+#### Issues and Fixes
+For this task I ran through some Issue
+- First Issue was that the terminal wis giving me the wrong outputs after running `aws budgets create-budget`. I solved this issue by correctly naming my `budget-notifiactions-with-subscriber.json` file.
+- After solving the first Issue I was still reciving the wrong out put from the terminal, after looking at the error, I found out that I hadn't properly exported my `ACCOUNT_ID` to an environment variable. I solved this issue by running the command `export ACCOUNT_ID = $(aws sts get-caller-identiy --query Account --output text)`
 
 ### ✅ Used the CLI from Gitpod to create a Budget and a Billing Alarm
 
@@ -79,5 +76,21 @@ For this task I ran through some bugs
 
 ### ✅ Created an architectural diagram the CI/CD logical pipeline in Lucid Charts
 <img src="screenshots/week0/week0_10.png" >
+
+### ✅ Used EventBridge to hookup Health Dashboard to SNS and send notification when there is a service health issue
+
+I created an SNS Topic for the Notification
+<img src="screenshots/week0/week0_11.png" >
+
+My process on using EventBridge to create the Notification when any event from the AWS Health Service is triggered
+<img src="screenshots/week0/week0_12.png" >
+
+Final Results
+<img src="screenshots/week0/week0_13.png" >
+
+#### Issues and Fixes
+For this task I had the issue of using the wrong region for creating my SNS topic. I created the SNS topic in US-East-1 region and was using it for my EventBridge Notification in the EU-Central-1 region. Took me some time to figure out my mistake. **Learnt from this issue that I should always be aware of the region I am using to create a service.**
+
+
 
 
