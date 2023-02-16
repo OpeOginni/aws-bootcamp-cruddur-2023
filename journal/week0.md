@@ -80,16 +80,17 @@ For this task I ran through some Issue
 ### ✅ Used EventBridge to hookup Health Dashboard to SNS and send notification when there is a service health issue
 
 I created an SNS Topic for the Notification
-<img src="screenshots/week0/week0_11.png" >
+<img src="screenshots/week0/week0_11.png" width="600">
 
 My process on using EventBridge to create the Notification when any event from the AWS Health Service is triggered
-<img src="screenshots/week0/week0_12.png" >
+<img src="screenshots/week0/week0_12.png" width="600">
 
 Final Results
 <img src="screenshots/week0/week0_13.png" >
 
 #### Issues and Fixes
-For this task I had the issue of using the wrong region for creating my SNS topic. I created the SNS topic in US-East-1 region and was using it for my EventBridge Notification in the EU-Central-1 region. Took me some time to figure out my mistake. **Learnt from this issue that I should always be aware of the region I am using to create a service.**
+For this task I had the issue of using the wrong region for creating my SNS topic. I created the SNS topic in US-East-1 region and was using it for my EventBridge Notification in the EU-Central-1 region. Took me some time to figure out my mistake.
+**Learnt from this issue that I should always be aware of the region I am using to create a service.**
 
 
 
