@@ -5,7 +5,6 @@
 These are the tasks I completed during this week.
 
 ```
-✅ Set up MFA for Root Account and create IAM role
 ✅ Set up 2 AWS Budget
 ✅ Generated AWS Credentials
 ✅ Used and Tested CloudShell
@@ -13,17 +12,10 @@ These are the tasks I completed during this week.
 ✅ Used the CLI from Gitpod to create a Budget and a Billing Alarm
 ✅ Created a Conceptual Architecture Diagram on a Napkin
 ✅ Created an architectural diagram the CI/CD logical pipeline in Lucid Charts
+✅ Set up MFA for Root Account and create IAM role
 ✅ Used EventBridge to hookup Health Dashboard to SNS and send notification when there is a service health issue
 ```
 All these Individual tasks will be discussed below. I will state my process of completing the task, add screenshot proofs and give details about some issues I came across and how I debugged these issues for tasks that requires these information.
-
-### ✅ Set up MFA for Root Account and create IAM role
-
-- Added MFA for my Root Account using Authy
-- Created new User and added that user to an 'admin' user group
-- Added MFA for my new 'admin' user
-
-<img src="screenshots/week0/week0_1.png" >
 
 ### ✅ Set up 2 AWS Budget
 
@@ -76,6 +68,14 @@ For this task I ran through some Issue
 
 ### ✅ Created an architectural diagram the CI/CD logical pipeline in Lucid Charts
 <img src="screenshots/week0/week0_10.png" >
+
+### ✅ Set up MFA for Root Account and create IAM role
+
+- Added MFA for my Root Account using Authy
+- Created new User and added that user to an 'admin' user group
+- Added MFA for my new 'admin' user
+
+<img src="screenshots/week0/week0_1.png" >
 
 ### ✅ Used EventBridge to hookup Health Dashboard to SNS and send notification when there is a service health issue
 
