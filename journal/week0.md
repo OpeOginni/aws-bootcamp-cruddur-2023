@@ -76,6 +76,8 @@ For this task I ran through some Issue
 **[Link to Diagram](https://lucid.app/lucidchart/dafb1a03-bc79-4c9c-84f5-318bc2cfe7e6/edit?viewport_loc=-107%2C-265%2C2232%2C1656%2C0_0&invitationId=inv_612263c3-6f07-4268-884b-c9f02de4d026)**
 <img src="screenshots/week0/week0_10.png" >
 
+## Homework Challenges
+
 ### ✅ Set up MFA for Root Account and create IAM role
 
 - Added MFA for my Root Account using Authy
