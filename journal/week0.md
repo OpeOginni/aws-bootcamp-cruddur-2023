@@ -13,6 +13,8 @@ These are the tasks I completed during this week.
 ✅ Created a Conceptual Architecture Diagram on a Napkin
 ✅ Created an architectural diagram the CI/CD logical pipeline in Lucid Charts
 ✅ Set up MFA for Root Account and create IAM role
+✅ Created 2 AWS Organizations
+✅ Created a Trail that logs all actons in my AWS Organization
 ✅ Used EventBridge to hookup Health Dashboard to SNS and send notification when there is a service health issue
 ```
 All these Individual tasks will be discussed below. I will state my process of completing the task, add screenshot proofs and give details about some issues I came across and how I debugged these issues for tasks that requires these information.
@@ -81,6 +83,21 @@ For this task I ran through some Issue
 - Added MFA for my new 'admin' user
 
 <img src="screenshots/week0/week0_1.png" >
+
+### ✅ Created 2 AWS Organizations
+- I used the method of creating Organizations recommended by Ashish, in the [Week0 Security Video](https://www.youtube.com/watch?v=4EMWBYVggQI&list=PLBfufR7vyJJ7k25byhRXJldB5AiwgNnWv&index=15) 
+- Created a Standby Account Organization for Accounts I create that are not operational
+- Created an Acctive Account Organization for Accounts that are active.
+
+<img src="screenshots/week0/week0_14.png" >
+<img src="screenshots/week0/week0_15.png" >
+
+***Learnt a lot about making sure I used Tags when creating services to help with organization and ease billing search***
+
+### ✅ Created a Trail that logs all actons in my AWS Organization
+
+<img src="screenshots/week0/week0_16.png" >
+<img src="screenshots/week0/week0_17.png" >
 
 ### ✅ Used EventBridge to hookup Health Dashboard to SNS and send notification when there is a service health issue
 
