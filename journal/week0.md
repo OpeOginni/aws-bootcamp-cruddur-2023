@@ -89,14 +89,14 @@ For this task I ran through some Issue
 - Created a Standby Account Organization for Accounts I create that are not operational
 - Created an Acctive Account Organization for Accounts that are active.
 
-<img src="screenshots/week0/week0_14.png" >
-<img src="screenshots/week0/week0_15.png" >
+<img src="screenshots/week0/week0_14.png" width="600">
+<img src="screenshots/week0/week0_15.png" width="600">
 
 ***Learnt a lot about making sure I used Tags when creating services to help with organization and ease billing search***
 
 ### ✅ Created a Trail that logs all actons in my AWS Organization
 
-<img src="screenshots/week0/week0_16.png" >
+<img src="screenshots/week0/week0_16.png" width="600">
 <img src="screenshots/week0/week0_17.png" >
 
 ### ✅ Used EventBridge to hookup Health Dashboard to SNS and send notification when there is a service health issue
