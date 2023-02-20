@@ -21,7 +21,8 @@ All these Individual tasks will be discussed below. I will state my process of c
 - Built the Backend Docker File
 <img src="screenshots/week1/week1_0.png" >
 
-- **[Created Docker Compose File](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/blob/main/docker-compose.yml)**
+- Created Docker Compose File
+    - **[Check out Docker Compose Code](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/blob/main/docker-compose.yml)**
 - I ran the compose file and tested the app
 <img src="screenshots/week1/week1_2.png" >
 
