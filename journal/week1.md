@@ -16,11 +16,10 @@ All these Individual tasks will be discussed below. I will state my process of c
 
 - Created Docker Files for the Frontend and Backend
     - **[Frontend Docker File](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/blob/main/frontend-react-js/Dockerfile)**
-    - **[Backend Docket File](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/blob/main/backend-flask/Dockerfile)**
+    - **[Backend Docker File](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/blob/main/backend-flask/Dockerfile)**
+    - <img src="screenshots/week1/week1_1.png" >
 - Built the Backend Docker File
 <img src="screenshots/week1/week1_0.png" >
-
-<img src="screenshots/week1/week1_1.png" >
 
 - **[Created Docker Compose File](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/blob/main/docker-compose.yml)**
 - I ran the compose file and tested the app
