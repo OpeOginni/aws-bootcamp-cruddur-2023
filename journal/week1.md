@@ -10,6 +10,7 @@ These are the tasks I completed during this week.
 ✅ Containerized my application (Docker files, Docker Compose)
 ✅ Added Documentation for the Notification Endpoint on the OpenAI Document, Wrote a Flask Backend Endpoint for Notifactions and wrote a React Page for Notifications
 ✅ I ran DynamoDB Local Container and Postgres Container
+✅ Added NPM install command to gitpod.yml
 ```
 All these Individual tasks will be discussed below. I will state my process of completing the task, add screenshot proofs and give details about some issues I came across and how I debugged these issues for tasks that requires these information.
 
@@ -43,6 +44,13 @@ All these Individual tasks will be discussed below. I will state my process of c
 
 ### ✅ I ran DynamoDB Local Container and Postgres Container
 <img src="screenshots/week1/week1_4.png" >
+
+## Homework Challenges
+
+### ✅ Added NPM install command to gitpod.yml
+
+- [Check out the commit](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/2049edad4784d69ee4abfa296d2f6c386e041b1a) 
+
 
 
 
