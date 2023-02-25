@@ -11,6 +11,7 @@ These are the tasks I completed during this week.
 ✅ Added Documentation for the Notification Endpoint on the OpenAI Document, Wrote a Flask Backend Endpoint for Notifactions and wrote a React Page for Notifications
 ✅ I ran DynamoDB Local Container and Postgres Container
 ✅ Added NPM install command to gitpod.yml
+✅ I implemented HealthCheck in the docker-compose
 ```
 All these Individual tasks will be discussed below. I will state my process of completing the task, add screenshot proofs and give details about some issues I came across and how I debugged these issues for tasks that requires these information.
 
@@ -50,6 +51,19 @@ All these Individual tasks will be discussed below. I will state my process of c
 ### ✅ Added NPM install command to gitpod.yml
 
 - [Check out the commit](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/2049edad4784d69ee4abfa296d2f6c386e041b1a) 
+
+### ✅ I implemented HealthCheck in the docker-compose
+
+**Did some reasearch in the [Docker Docs](https://docs.docker.com/compose/compose-file/compose-file-v3/#healthcheck) to find out about healthcheck and how to implement it**
+
+```
+Pishure
+```
+[Link to commit](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/d39f43fdb4bd1cae86eeec10b88a01abbabb4347)
+
+***Issues I went through***
+- The Backend Container always had a health status of unhealthy. I did some debbuging and an error message was given about curl not being installed, after some research and talking to some other students I found the right command to install curl into the backend container and I added this comand to the Docker file, here is the [commit](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/347627d31fd5d3efb0caf221d048c4425e0e9032)
+- I tried using the home route of the backend container `https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}` as the route to run the healthcheck on, but this didn't work well. I then remeberd that this route returned nothing and I tried using a route that returned a value, like the `api/activities/home` route.
 
 
 
