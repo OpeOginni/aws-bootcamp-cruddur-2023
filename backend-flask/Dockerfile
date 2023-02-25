@@ -13,6 +13,11 @@ COPY requirements.txt requirements.txt
 # A command to install the python libraries needed to run the app located in the `requirements.txt` file
 RUN pip3 install -r requirements.txt
 
+# Need to install CURL to make HealthCheck to run properly
+RUN apt-get update 
+RUN apt-get install -y gcc
+RUN apt-get install -y curl
+
 # Outside Container -> Inside Container
 # . (period) means everything in the corrent directory
 # First Period . - /backend-flask (outside the container)
