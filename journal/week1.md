@@ -29,7 +29,7 @@ All these Individual tasks will be discussed below. I will state my process of c
 - Created Docker Compose File
     - **[Check out Docker Compose Code](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/blob/main/docker-compose.yml)**
 - I ran the compose file and tested the app
-<img src="screenshots/week1/week1_2.png" >
+<img src="screenshots/week1/week1_2.png" width="600px">
 
 ### ✅ Added Documentation for the Notification Endpoint on the OpenAI Document, Wrote a FLask Backend Endpoint for Notifactions and wrote a React Page for Notifications
 
@@ -39,7 +39,7 @@ All these Individual tasks will be discussed below. I will state my process of c
     - Commit change creating the `/notifications` route in the `app.js` file: [commit](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/66e37c0b62875f45a60fbbfad3e38da2729fcf98)
 - Wrote a React Page for Notifications: [`NotificationsFeedPage.js`](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/blob/main/frontend-react-js/src/pages/NotificationsFeedPage.js)
 
-<img src="screenshots/week1/week1_3.png" >
+<img src="screenshots/week1/week1_3.png" width="600px">
 
 **Issues and Fixes**
 
@@ -65,7 +65,7 @@ All these Individual tasks will be discussed below. I will state my process of c
 #### Immediate Results
 **Frontend Container HealthCheck**
 
-<img src="screenshots/week1/week1_6.png" height="600px">
+<img src="screenshots/week1/week1_6.png" height="400px">
 
 **Backend Container HealthCheck**
 
@@ -79,12 +79,14 @@ I solved the backend container issue, the description is shown below.
 - I tried using the home route of the backend container `https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}` as the route to run the healthcheck on, but this didn't work well. I then remeberd that this route returned nothing and I tried using a route that returned a value, like the `api/activities/home` route.
 
 **Result of Backend Container HealthCheck after fix**
-<img src="screenshots/week1/week1_9.png" >
+
+<img src="screenshots/week1/week1_9.png" width="600px">
 
 **Proof of all containers Running**
-<img src="screenshots/week1/week1_5.png" >
+
+<img src="screenshots/week1/week1_5.png" width="600px">
 
 ### ✅ Created my personal Cloud Journey Roadmap using the My Journey To Cloud template
-<img src="screenshots/week1/Cloud_Engineer.png" >
+<img src="screenshots/week1/Cloud_Engineer.png" width="600px">
 
 
