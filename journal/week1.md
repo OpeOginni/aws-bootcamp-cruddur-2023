@@ -62,9 +62,11 @@ All these Individual tasks will be discussed below. I will state my process of c
 
 #### Immediate Results
 **Frontend Container HealthCheck**
-<img src="screenshots/week1/week1_6.png" width="600px">
+
+<img src="screenshots/week1/week1_6.png" height="600px">
 
 **Backend Container HealthCheck**
+
 <img src="screenshots/week1/week1_7.png" width="600px">
 
 I solved the backend container issue, the description is shown below.
