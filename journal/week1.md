@@ -62,23 +62,20 @@ All these Individual tasks will be discussed below. I will state my process of c
 
 #### Immediate Results
 **Frontend Container HealthCheck**
-<img src="screenshots/week1/week1_6.png" >
+<img src="screenshots/week1/week1_6.png" width="600px">
+
 **Backend Container HealthCheck**
-<img src="screenshots/week1/week1_6.png" >
+<img src="screenshots/week1/week1_7.png" width="600px">
+
 I solved the backend container issue, the description is shown below.
 
 
 ***Issues I went through***
-- The Backend Container always had a health status of unhealthy. I did some debbuging and an error message was given about curl not being installed, after some research and talking to some other students I found the right command to install curl into the backend container and I added this comand to the Docker file, here is the [commit](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/347627d31fd5d3efb0caf221d048c4425e0e9032)
+- The Backend Container always had a health status of unhealthy. I did some debbuging and an error message was given about curl not being installed, after some research and talking to some other students I found the right command to install curl into the backend container and I added this comand to the Docker file, here is the [commit](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/347627d31fd5d3efb0caf221d048c4425e0e9032).
+- I tried using the home route of the backend container `https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}` as the route to run the healthcheck on, but this didn't work well. I then remeberd that this route returned nothing and I tried using a route that returned a value, like the `api/activities/home` route.
+
 **Result of Backend Container HealthCheck after fix**
 <img src="screenshots/week1/week1_9.png" >
 
-- I tried using the home route of the backend container `https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}` as the route to run the healthcheck on, but this didn't work well. I then remeberd that this route returned nothing and I tried using a route that returned a value, like the `api/activities/home` route.
-
 **Proof of all containers Running**
 <img src="screenshots/week1/week1_5.png" >
-
-
-
-
-
