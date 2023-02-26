@@ -1,6 +1,18 @@
 from datetime import datetime, timedelta, timezone
+
+# X-RAY --------
+from aws_xray_sdk.core import xray_recorder
+
 class NotificationsActivities:
   def run():
+
+    # X-RAY --------
+    #segment = xray_recorder.begin_segment('user_activities')
+    model = {
+      'errors': None,
+      'data': None
+    }
+
     now = datetime.now(timezone.utc).astimezone()
     results = [{
       'uuid': '68f126b0-1ceb-4a33-88be-d90fa7109eee',
@@ -23,4 +35,18 @@ class NotificationsActivities:
       }],
     },
     ]
+
+    # X-RAY --------
+    subsegment = xray_recorder.begin_subsegment('mock-data')
+    # Adding Test Annotations
+    subsegment.put_annotation('user', "Me: Opeyemi")
+    subsegment.put_annotation('annotation_type', "Test Annotation")
+    # Adding Metadata
+    dict = {
+      "now": now.isoformat(),
+      "results-size": len(results)
+    }
+    subsegment.put_metadata('key', dict, 'namespace')
+    # You have to END the subsegment
+    xray_recorder.end_subsegment()
     return results
