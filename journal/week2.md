@@ -5,8 +5,53 @@
 These are the tasks I completed during this week.
 
 ```
+✅ Implemented HoneyComb
+✅ Implemented X-Ray
+✅ Implemented CloudWatch Logs to my App
 ✅ Added Subsegments, Annotations and Metadata to X-Ray Traces
 ```
+
+### ✅ Implemented HoneyComb
+
+Here is the [commit](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/e9e01d653578a899e6959ecb969cd97fba198556) that shows the implementation of HoneyComb to my app.
+
+***Proof Of the Task***
+
+- Recent Traces displayed on the HoneyComb site
+
+<img src="screenshots/week2/week2_9.png" width="600">
+
+- Trace for Route `/api/activities/home`
+<img src="screenshots/week2/week2_10.png">
+
+- Trace for Route `/api/activities/notification` 
+<img src="screenshots/week2/week2_11.png">
+
+
+### ✅ Implemented X-Ray
+
+***Proof Of the Task***
+
+- Created X-Ray Group Using CLI
+<img src="screenshots/week2/week2_0.png" width="600">
+
+<img src="screenshots/week2/week2_1.png" >
+
+- Created Sampling Rule
+
+<img src="screenshots/week2/week2_2.png" width="600">
+
+<img src="screenshots/week2/week2_3.png" width="600">
+
+### ✅ Implemented CloudWatch Logs to my App
+
+***Proof Of the Task***
+
+- Log Group
+<img src="screenshots/week2/week2_8.png" >
+
+- Active Logs
+<img src="screenshots/week2/week2_7.png" >
 
 ## Homework Challenges
 
