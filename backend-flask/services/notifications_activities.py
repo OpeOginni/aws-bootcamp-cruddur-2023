@@ -7,7 +7,6 @@ class NotificationsActivities:
   def run():
 
     # X-RAY --------
-    #segment = xray_recorder.begin_segment('user_activities')
     model = {
       'errors': None,
       'data': None
@@ -37,16 +36,19 @@ class NotificationsActivities:
     ]
 
     # X-RAY --------
-    subsegment = xray_recorder.begin_subsegment('mock-data')
+    #subsegment = xray_recorder.begin_subsegment('mock-data')
+    
     # Adding Test Annotations
-    subsegment.put_annotation('user', "Me: Opeyemi")
-    subsegment.put_annotation('annotation_type', "Test Annotation")
+    #subsegment.put_annotation('user', "Me: Opeyemi")
+    #subsegment.put_annotation('annotation_type', "Test Annotation")
+
     # Adding Metadata
-    dict = {
-      "now": now.isoformat(),
-      "results-size": len(results)
-    }
-    subsegment.put_metadata('key', dict, 'namespace')
+    #dict = {
+      #"now": now.isoformat(),
+      #"results-size": len(results)
+    #}
+    #subsegment.put_metadata('key', dict, 'namespace')
+
     # You have to END the subsegment
-    xray_recorder.end_subsegment()
+    #xray_recorder.end_subsegment()
     return results
