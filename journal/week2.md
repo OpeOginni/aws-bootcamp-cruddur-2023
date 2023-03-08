@@ -1,6 +1,6 @@
 # Week 2 — Distributed Tracing
 
-## Week 0 Tasks
+## Week 2 Tasks
 
 These are the tasks I completed during this week.
 
