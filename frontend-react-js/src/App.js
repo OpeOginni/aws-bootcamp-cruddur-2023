@@ -9,13 +9,28 @@ import RecoverPage from './pages/RecoverPage';
 import MessageGroupsPage from './pages/MessageGroupsPage';
 import MessageGroupPage from './pages/MessageGroupPage';
 import ConfirmationPage from './pages/ConfirmationPage';
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   createBrowserRouter,
   RouterProvider
 } from "react-router-dom";
 
-import { Amplify } from 'aws-amplify';
+// To listen for email confirmation event
+import { Amplify, Hub} from 'aws-amplify';
+
+useEffect(() => {
+Hub.listen('auth', ({ payload }) => {
+  const { event } = payload;
+  if (event === 'autoSignIn') {
+      const user = payload.data;
+      // assign user
+      console.log('Hello from Event Listener!!');
+      console.log(user);
+      localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
+  }
+})
+}, []);
+
 
 Amplify.configure({
   "AWS_PROJECT_REGION": process.env.REACT_APP_AWS_PROJECT_REGION,

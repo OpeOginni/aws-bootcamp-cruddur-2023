@@ -4,7 +4,17 @@ import { useParams } from 'react-router-dom';
 import {ReactComponent as Logo} from '../components/svg/logo.svg';
 
 // [TODO] Authenication
-import { Auth } from 'aws-amplify';
+import { Auth, Hub } from 'aws-amplify';
+
+// Listen to Confirm Event and Auto Sign In User
+    Hub.listen('auth', ({ payload }) => {
+        const { event } = payload;
+        if (event === 'autoSignIn') {
+            const user = payload.data;
+            // assign user
+            localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
+        }
+    })
 
 export default function ConfirmationPage() {
   const [email, setEmail] = React.useState('');
@@ -44,7 +54,7 @@ export default function ConfirmationPage() {
     event.preventDefault();
     setErrors('')
     try {
-      await Auth.confirmSignUp(email, code);
+      await Auth.confirmSignUp(email, code)
       window.location.href = "/"
     } catch (error) {
       setErrors(error.message)
