@@ -7,6 +7,7 @@ These are the tasks I completed during this week.
 ```
 ✅ Created Cognito User Pool
 ✅ Implemented Amazon Cognito for SignUp, SignIn, Confirm Password and Forgot Password features
+✅ Implemented Check for the JWT Token on the Backend
 ✅ Tried to enable Auto-SignIn after User Confirms Email
 ✅ Made a slight change to the Promt Message after the Password has been Reset
 ```
@@ -28,6 +29,23 @@ Here is the [commit](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/comm
 ***Proof Of the Task***
 
 <img src="screenshots/week3/week3_2.png" width="600">
+
+### ✅ Implemented Check for the JWT Token on the Backend
+
+For this task, I followed through the video and I had issues as I am not 100% fluent with writing Python, but I was able to understand all implementation of the code. I found this concept of still mixing Cognito with the backend ver interesting and would be testing it out with NodeJS.
+
+Here is the [commit](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/2c752226b676e952de319eaf94103d7f2299fea3) where I made this implementation.
+
+***Proof Of the Task***
+
+**Home Page When Not Signed In ❌**
+
+<img src="screenshots/week3/week3_3.png" width="800" >
+
+**Home Page When Signed In ✅**
+
+<img src="screenshots/week3/week3_4.png" width="800">
+
 
 ## Homework Challenges
 
