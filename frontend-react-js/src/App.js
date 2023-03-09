@@ -18,18 +18,16 @@ import {
 // To listen for email confirmation event
 import { Amplify, Hub} from 'aws-amplify';
 
-useEffect(() => {
-Hub.listen('auth', ({ payload }) => {
-  const { event } = payload;
-  if (event === 'autoSignIn') {
-      const user = payload.data;
-      // assign user
-      console.log('Hello from Event Listener!!');
-      console.log(user);
-      localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
-  }
-})
-}, []);
+  Hub.listen('auth', ({ payload }) => {
+    const { event } = payload;
+    if (event === 'autoSignIn') {
+        const user = payload.data;
+        // assign user
+        console.log('Hello from Event Listener!!');
+        console.log(user);
+        localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
+    }
+  })
 
 
 Amplify.configure({
