@@ -2,6 +2,7 @@ import './SigninPage.css';
 import React from "react";
 import {ReactComponent as Logo} from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
+import {GoogleSignIn} from '../loginComponents/googleLogin'
 
 // [TODO] Authenication
 import { Auth } from 'aws-amplify';
@@ -79,7 +80,14 @@ export default function SigninPage() {
             <button type='submit'>Sign In</button>
           </div>
 
+        {/* Button to Sign In with Google 
+          <div className='google-login'>
+            <p className='or-google'> Or</p>
+            <GoogleSignIn/>
+          </div> */}
+
         </form>
+
         <div className="dont-have-an-account">
           <span>
             Don't have an account?

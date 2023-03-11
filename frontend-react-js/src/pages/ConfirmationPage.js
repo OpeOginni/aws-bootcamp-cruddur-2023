@@ -6,16 +6,6 @@ import {ReactComponent as Logo} from '../components/svg/logo.svg';
 // [TODO] Authenication
 import { Auth, Hub } from 'aws-amplify';
 
-// Listen to Confirm Event and Auto Sign In User
-    Hub.listen('auth', ({ payload }) => {
-        const { event } = payload;
-        if (event === 'autoSignIn') {
-            const user = payload.data;
-            // assign user
-            localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken)
-        }
-    })
-
 export default function ConfirmationPage() {
   const [email, setEmail] = React.useState('');
   const [code, setCode] = React.useState('');
@@ -49,6 +39,19 @@ export default function ConfirmationPage() {
       }
     }
   }
+
+  const handleAutoSignIn = ({ payload }) => {
+    const { event } = payload;
+    if (event === 'autoSignIn') {
+      const user = payload.data;
+      console.log(user);
+      localStorage.setItem("access_token", user.signInUserSession.accessToken.jwtToken);
+      window.location.href = "/";
+    }
+  };
+
+  Hub.listen('auth', handleAutoSignIn);
+
 
   const onsubmit = async (event) => {
     event.preventDefault();

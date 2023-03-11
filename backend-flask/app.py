@@ -35,6 +35,9 @@ import watchtower
 import logging
 from time import strftime
 
+# MIDDLEWARE
+from middleware.jwt_middleware import verify_jwt
+
 # Configuring Logger to Use CloudWatch
 # LOGGER = logging.getLogger(__name__)
 # LOGGER.setLevel(logging.DEBUG)
@@ -98,6 +101,9 @@ cors = CORS(
 #     LOGGER.error('%s %s %s %s %s %s', timestamp, request.remote_addr, request.method, request.scheme, request.full_path, response.status)
 #     return response
 
+# MIDDLEWARE
+
+
 @app.route("/api/message_groups", methods=['GET'])
 def data_message_groups():
   user_handle  = 'andrewbrown'
@@ -134,22 +140,30 @@ def data_create_message():
   return
 
 @app.route("/api/activities/home", methods=['GET'])
+  # New Method
+  # Middleware that checks the jwt and passes the info to a request param aclled claims
+@verify_jwt
+
 def data_home():
-  access_token = extract_access_token(request.headers)
-  try:
-    claims = cognito_jwt_token.verify(access_token)
-    # authenticated request
-    app.logger.debug("authenicated")
-    app.logger.debug(claims)
-    app.logger.debug(claims['username'])
-    data = HomeActivities.run(cognito_user_id=claims['username'])
-  except TokenVerifyError as e:
-    # unathenticated request
-    app.logger.debug(e)
-    app.logger.debug("unauthenicated")
-    data = HomeActivities.run()
-    #data = HomeActivities.run(Logger=LOGGER)
-  return data, 200
+
+  # Old Method
+
+  # access_token = extract_access_token(request.headers)
+  # try:
+  #   claims = cognito_jwt_token.verify(access_token)
+  #   # authenticated request
+  #   app.logger.debug("authenicated")
+  #   app.logger.debug(claims)
+  #   app.logger.debug(claims['username'])
+  #   data = HomeActivities.run(cognito_user_id=claims['username'])
+  # except TokenVerifyError as e:
+  #   # unathenticated request
+  #   app.logger.debug(e)
+  #   app.logger.debug("unauthenicated")
+  #   data = HomeActivities.run()
+  #   #data = HomeActivities.run(Logger=LOGGER)
+  # return data, 200
+  data = HomeActivities.run(request.claims)
 
   return data, 200
 
