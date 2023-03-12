@@ -1,0 +1,8 @@
+1: Run your postgres DB Docker Instance
+
+2: Create a database using this command `createdb cruddur -h localhost -U postgres`
+
+3: You can use this command to run scripts `psql cruddur < db/schema.sql -h localhost -U postgres`
+
+4: Create bash files to run multiple databse commands
+
