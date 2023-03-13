@@ -1,0 +1,14 @@
+1: Run your postgres DB Docker Instance
+
+2: Create Your Cruddur database with the right Data: 
+  - cd into backend-flask `cd backend-flask`
+  - Run the Create Database Bash Script `./bin/db-create`
+  - Load the Schema `./bin/db-schema-load`
+  - Add the Seed Data `./bin/db-seed`
+
+
+3: You can use this command to connect to the database `./bin/db-connect`
+
+4: Whatever bin file you create you need to give RUN permission use this command `chmod u+x <the-file-path>
+
+
