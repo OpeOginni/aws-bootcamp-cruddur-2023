@@ -40,6 +40,7 @@ class Db:
     no_color = '\033[0m'
     print(f'{cyan} SQL STATEMENT-[{title}]------{no_color}')
     print(sql)
+    
   def query_commit(self,sql,params={}):
     self.print_sql('commit with returning',sql)
 
@@ -57,6 +58,7 @@ class Db:
           return returning_id
     except Exception as err:
       self.print_sql_err(err)
+
   # when we want to return a json object
   def query_array_json(self,sql,params={}):
     self.print_sql('array',sql)
