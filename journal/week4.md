@@ -10,6 +10,7 @@ These are the tasks I completed during this week.
 ✅ Installed Postgres Driver in Backend Application
 ✅ Connected Gitpod to RDS Instance
 ✅ Created Congito Trigger to insert user into database
+✅ Created new activities with a database insert
 ```
 
 ### ✅ Created an RDS Postgres Instance
@@ -71,7 +72,18 @@ Here is the [commit](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/comm
 - **Learnt how to create IAM Policies and attach them to roles for specific AWS resources**
 - **Learnt how to allow a resource to have access to another resource by adding both to the same VPC**
 
+### ✅ Created new activities with a database insert
 
+This was very large section, and the commits were divided into parts.
 
+- [**Commit 1**](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/7fc38a653d0f81f7870aa2d6e0af624107921397)
+- [**Commit 2**](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/3dbd1022bc62a60e76496e2578d6be9d05b085b0)
+- [**Commit 3**](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/8ad760bfe944519a249e1b659c5f033b9f994ce6)
 
+***Proof Of the Task***
 
+<img src="screenshots/week4/week4_8.png" width="600">
+
+***Issues Met***
+
+I was having serious issues getting my activity (CRUD) to be inserted into the database, I did some debugging and checked the discord for previous situations like the one I was having. I noticed that the user I was creating CRUDS with was created in cognito BEFORE I started inserting users into the Database, so I had to delete that user and sign up again, I also had to make slight changes to the lambda fucnction to properly save my details to the Database.
