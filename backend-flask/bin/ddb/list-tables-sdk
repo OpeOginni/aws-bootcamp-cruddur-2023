@@ -4,6 +4,8 @@ import boto3
 import sys
 
 #Using what I learned from the Boto Documenation
+# Listing tables using the SDK
+
 
 attrs = {
     'endpoint_url': 'http://localhost:8000'
