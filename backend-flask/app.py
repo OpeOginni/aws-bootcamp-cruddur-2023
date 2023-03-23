@@ -105,13 +105,36 @@ cors = CORS(
 
 
 @app.route("/api/message_groups", methods=['GET'])
+# Using my verify_jwt middleware
+@verify_jwt("message_groups_endpoint")
+# This middleware passes the claim in the req and it can be obtained using request.claims
+
 def data_message_groups():
-  user_handle  = 'andrewbrown'
-  model = MessageGroups.run(user_handle=user_handle)
-  if model['errors'] is not None:
-    return model['errors'], 422
+
+  app.logger.debug("########################")
+  app.logger.debug(request.claims)
+
+  if request.claims is not None:
+    try:
+      app.logger.debug("authenticated")
+      app.logger.debug(request.claims)
+      cognito_user_id = request.claims['sub']
+      model = MessageGroups.run(cognito_user_id=cognito_user_id)
+
+      if model['errors'] is not None:
+        return model['errors'], 422
+      else:
+        return model['data'], 200
+
+    except TokenVerifyError as e:
+      app.logger.debug('unauthenticated')
+      data = HomeActivities.run()
+      return {}, 401
   else:
-    return model['data'], 200
+    app.logger.debug('unauthenticated')
+    data = HomeActivities.run()
+    return {}, 401
+
 
 @app.route("/api/messages/@<string:handle>", methods=['GET'])
 def data_messages(handle):
@@ -142,8 +165,7 @@ def data_create_message():
 @app.route("/api/activities/home", methods=['GET'])
   # New Method
   # Middleware that checks the jwt and passes the info to a request param aclled claims
-@verify_jwt
-
+@verify_jwt("home_activities_endpoint")
 def data_home():
 
   # Old Method
@@ -164,6 +186,8 @@ def data_home():
   #   #data = HomeActivities.run(Logger=LOGGER)
   # return data, 200
   data = HomeActivities.run(request.claims)
+  app.logger.debug("########################")
+  app.logger.debug(request.claims)
 
   return data, 200
 
