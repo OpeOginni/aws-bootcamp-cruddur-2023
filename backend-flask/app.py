@@ -117,7 +117,7 @@ def data_message_groups():
   if request.claims is not None:
     try:
       app.logger.debug("authenticated")
-      app.logger.debug(request.claims)
+      app.logger.debug(request.claims['sub'])
       cognito_user_id = request.claims['sub']
       model = MessageGroups.run(cognito_user_id=cognito_user_id)
 
