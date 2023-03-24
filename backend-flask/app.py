@@ -4,6 +4,7 @@ from flask_cors import CORS, cross_origin
 import os
 import sys
 
+from services.users_short import *
 from services.home_activities import *
 from services.notifications_activities import *
 from services.user_activities import *
@@ -111,9 +112,6 @@ cors = CORS(
 
 def data_message_groups():
 
-  app.logger.debug("########################")
-  app.logger.debug(request.claims)
-
   if request.claims is not None:
     try:
       app.logger.debug("authenticated")
@@ -136,31 +134,83 @@ def data_message_groups():
     return {}, 401
 
 
-@app.route("/api/messages/@<string:handle>", methods=['GET'])
-def data_messages(handle):
-  user_sender_handle = 'andrewbrown'
-  user_receiver_handle = request.args.get('user_reciever_handle')
+@app.route("/api/messages/<string:message_group_uuid>", methods=['GET'])
 
-  model = Messages.run(user_sender_handle=user_sender_handle, user_receiver_handle=user_receiver_handle)
-  if model['errors'] is not None:
-    return model['errors'], 422
+@verify_jwt("message_group_endpoint")
+
+def data_messages(message_group_uuid):
+
+  if request.claims is not None:
+    try:
+      app.logger.debug("authenticated")
+      app.logger.debug(request.claims['sub'])
+      cognito_user_id = request.claims['sub']
+      model = Messages.run(
+        cognito_user_id=cognito_user_id,
+        message_group_uuid=message_group_uuid
+        )
+      if model['errors'] is not None:
+        return model['errors'], 422
+      else:
+        return model['data'], 200
+
+    except TokenVerifyError as e:
+      app.logger.debug('unauthenticated')
+      data = HomeActivities.run()
+      return {}, 401
   else:
-    return model['data'], 200
-  return
+    app.logger.debug('unauthenticated')
+    data = HomeActivities.run()
+    return {}, 401
 
 @app.route("/api/messages", methods=['POST','OPTIONS'])
 @cross_origin()
+
+@verify_jwt("post_message_endpoint")
+
+
 def data_create_message():
-  user_sender_handle = 'andrewbrown'
-  user_receiver_handle = request.json['user_receiver_handle']
+  message_group_uuid   = request.json.get('message_group_uuid',None)
+  user_receiver_handle = request.json.get('handle',None)
   message = request.json['message']
 
-  model = CreateMessage.run(message=message,user_sender_handle=user_sender_handle,user_receiver_handle=user_receiver_handle)
-  if model['errors'] is not None:
-    return model['errors'], 422
+  if request.claims is not None:
+    try:
+      app.logger.debug("authenticated")
+      app.logger.debug(request.claims['sub'])
+      cognito_user_id = request.claims['sub']
+      if message_group_uuid == None:
+        # Create for the first time
+        app.logger.debug(message_group_uuid)
+        app.logger.debug(user_receiver_handle)
+        model = CreateMessage.run(
+          mode="create",
+          message=message,
+          cognito_user_id=cognito_user_id,
+          user_receiver_handle=user_receiver_handle
+        )
+      else:
+        # Push onto existing Message Group
+        model = CreateMessage.run(
+          mode="update",
+          message=message,
+          message_group_uuid=message_group_uuid,
+          cognito_user_id=cognito_user_id
+        )
+
+      if model['errors'] is not None:
+        return model['errors'], 422
+      else:
+        return model['data'], 200
+
+    except TokenVerifyError as e:
+      app.logger.debug('unauthenticated')
+      data = HomeActivities.run()
+      return {}, 401
   else:
-    return model['data'], 200
-  return
+    app.logger.debug('unauthenticated')
+    data = HomeActivities.run()
+    return {}, 401
 
 @app.route("/api/activities/home", methods=['GET'])
   # New Method
@@ -245,6 +295,11 @@ def data_activities_reply(activity_uuid):
   else:
     return model['data'], 200
   return
+
+@app.route("/api/users/@<string:handle>/short", methods=['GET'])
+def data_users_short(handle):
+  data = UsersShort.run(handle)
+  return data, 200
 
 if __name__ == "__main__":
   app.run(debug=True)
