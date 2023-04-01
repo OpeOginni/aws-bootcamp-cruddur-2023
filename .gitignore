@@ -1,2 +1,3 @@
 docker/dynamodb/*
 .vscode
+frontend-react-js/build/*
