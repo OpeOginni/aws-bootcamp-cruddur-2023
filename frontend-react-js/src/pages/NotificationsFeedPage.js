@@ -52,8 +52,8 @@ export default function NotificationsFeedPage() {
     dataFetchedRef.current = true;
 
     loadData();
-    checkAuth();
-  }, [])
+    checkAuth(setUser);
+}, [])
 
   return (
     <article>
