@@ -3,3 +3,4 @@ docker/dynamodb/*
 frontend-react-js/build/*
 session-manager-plugin.deb
 *.env
+node_modules
