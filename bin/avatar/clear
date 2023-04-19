@@ -5,4 +5,5 @@ SERVERLESS_PATH=$(dirname $ABS_PATH)
 DATA_FILE_PATH="$SERVERLESS_PATH/files/thasup.jpg"
 
 
-aws s3 cp "$DATA_FILE_PATH" "s3://assets.$DOMAIN_NAME/avatars/original/thasup.jpg"
+aws s3 rm "s3://opeoginni-cruddur-uploaded-avatars/thasup.jpg"
+aws s3 rm "s3://assets.$DOMAIN_NAME/avatars/processed/thasup.jpg"
