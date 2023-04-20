@@ -37,11 +37,14 @@
 font-size: 24px;
 font-weight: bold;
 color: rgb(255, 255, 255);
-
 }
 
 .profile_heading .info .handle {
     font-size: 17px;
     color: rgba(255, 255, 255,0.7);
+}
 
+
+.profile_heading .cruds_count {
+    color: rgba(255, 255, 255,0.7);
 }
