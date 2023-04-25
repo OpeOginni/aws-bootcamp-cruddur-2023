@@ -11,9 +11,13 @@ def handler(event:,context:)
     url = obj.presigned_url(:put, expires_in: 60 * 5)
     url # This is the data that will be returned
     body = {url: url}.to_json
-    { statusCode: 200, body: body } # This is the data that will be returned
+    {
+        headers: {
+            "Access-Control-Allow-Headers": "*, Authorization",
+            "Acess-Control-Allow-Origin": "https://*.gitpod.io"
+            "Acess-Control-Allow-Mehods": "OPTIONS,GET,POST"
+        },
+        statusCode: 200, 
+        body: body }
+         # This is the data that will be returned
 end
-
-puts handler(
-    event: {},
-    context: {})
