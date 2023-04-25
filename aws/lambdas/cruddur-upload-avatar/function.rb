@@ -12,12 +12,12 @@ def handler(event:,context:)
     url # This is the data that will be returned
     body = {url: url}.to_json
     {
-        headers: {
-            "Access-Control-Allow-Headers": "*, Authorization",
-            "Acess-Control-Allow-Origin": "https://*.gitpod.io"
-            "Acess-Control-Allow-Mehods": "OPTIONS,GET,POST"
-        },
-        statusCode: 200, 
-        body: body }
-         # This is the data that will be returned
+    headers: {
+        "Access-Control-Allow-Headers": "*, Authorization",
+        "Access-Control-Allow-Origin": "https://3000-opeoginni-awsbootcampcr-6rk8dyjkjfs.ws-eu95.gitpod.io",
+        "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
+    },
+    statusCode: 200, 
+    body: body 
+    }
 end
