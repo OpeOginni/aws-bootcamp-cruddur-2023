@@ -8,7 +8,6 @@ export default function ProfileForm(props) {
   const [displayName, setDisplayName] = React.useState(0);
 
   React.useEffect(()=>{
-    console.log('useEffects',props)
     setBio(props.profile.bio);
     setDisplayName(props.profile.display_name);
   }, [props.profile])
@@ -16,13 +15,13 @@ export default function ProfileForm(props) {
   const s3uploadkey = async (event)=> {
     try {
       console.log('s3 upload')
-      const backend_url = "https://9atlubq6ag.execute-api.eu-central-1.amazonaws.com/avatars/key_upload"
+      const backend_url = `${process.env.REACT_APP_API_GATEWAY_ENDPOINT_URL}/avatars/key_upload`
       await getAccessToken()
       const access_token = localStorage.getItem("access_token")
       const res = await fetch(backend_url, {
         method: "POST",
         headers: {
-          'Origin': 'https://3000-opeoginni-awsbootcampcr-6rk8dyjkjfs.ws-eu95.gitpod.io',
+          'Origin': process.env.REACT_APP_FRONTEND_URL,
           'Authorization': `Bearer ${access_token}`,
           'Accept': 'application/json',
           'Content-Type': 'application/json'
@@ -65,7 +64,6 @@ export default function ProfileForm(props) {
           'Content-Type': type
         }
       });
-      let data = await res.json();
       if (res.status === 200) {
 
       } else {

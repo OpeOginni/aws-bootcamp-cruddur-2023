@@ -17,7 +17,6 @@ export const checkAuth = async (setUser) => {
       bypassCache: false 
     })
     .then((cognito_user) => {
-      console.log('cognito_user',cognito_user);
       setUser({
         display_name: cognito_user.attributes.name,
         handle: cognito_user.attributes.preferred_username
@@ -25,7 +24,6 @@ export const checkAuth = async (setUser) => {
       return Auth.currentSession()
     }).then((cognito_user_session) => {
       localStorage.setItem("access_token", cognito_user_session.accessToken.jwtToken)
-
     })
     .catch((err) => console.log(err));
   };
