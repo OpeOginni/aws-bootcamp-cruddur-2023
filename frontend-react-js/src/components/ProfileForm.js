@@ -12,14 +12,14 @@ export default function ProfileForm(props) {
     setDisplayName(props.profile.display_name);
   }, [props.profile])
 
-  const s3uploadkey = async (event)=> {
+  const s3uploadkey = async (extension)=> {
+    console.log('ext', extension)
     try {
       const gateway_url = `${process.env.REACT_APP_API_GATEWAY_ENDPOINT_URL}/avatars/key_upload`
       await getAccessToken()
       const access_token = localStorage.getItem("access_token")
       const json = {
-        extension: "",
-        cognito_user_uuid: ""
+        extension: extension,
       }
       const res = await fetch(gateway_url, {
         method: "POST",
@@ -53,7 +53,7 @@ export default function ProfileForm(props) {
     const fileparts = filename.split(".")
     const extension = fileparts[fileparts.length - 1]
 
-    const presignedurl  = await s3uploadkey(extenstion,cognito_user_uuid)
+    const presignedurl  = await s3uploadkey(extension)
     try {
       console.log('s3 upload')
       const res = await fetch(presignedurl, {
