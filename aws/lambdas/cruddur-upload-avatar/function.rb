@@ -10,7 +10,7 @@ def handler(event:,context:)
         {
             headers: {
                 "Access-Control-Allow-Headers": "*, Authorization",
-                "Access-Control-Allow-Origin": "https://3000-opeoginni-awsbootcampcr-eqtkfz5ks68.ws-eu95.gitpod.io",
+                "Access-Control-Allow-Origin": "https://3000-opeoginni-awsbootcampcr-zzpcm2si1km.ws-eu95.gitpod.io",
                 "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
             },
             statusCode: 200, 
@@ -19,13 +19,18 @@ def handler(event:,context:)
         token = event['headers']['authorization'].split(' ')[1]
         puts ({step:'presignedURL', access_token: token}.to_json)
 
+        body_hash = JSON.parse(event["body"])
+        extension = body_hash["extension"]
+
         decoded_token = JWT.decode token, nil, false
         puts "decoded token"
-        puts decoded_token.inspect
+        cognito_user_uuid = decoded_token[0]['sub']
 
         s3 = Aws::S3::Resource.new
         bucket_name = ENV["UPLOADS_BUCKET_NAME"]
-        object_key = 'mock.jpg'
+        object_key = "#{cognito_user_uuid}.#{extension}"
+
+        puts({object_key: object_key}.to_json)
     
         obj = s3.bucket(bucket_name).object(object_key)
         url = obj.presigned_url(:put, expires_in: 60 * 5)
@@ -34,7 +39,7 @@ def handler(event:,context:)
         {
         headers: {
             "Access-Control-Allow-Headers": "*, Authorization",
-            "Access-Control-Allow-Origin": "https://3000-opeoginni-awsbootcampcr-eqtkfz5ks68.ws-eu95.gitpod.io",
+            "Access-Control-Allow-Origin": "https://3000-opeoginni-awsbootcampcr-zzpcm2si1km.ws-eu95.gitpod.io",
             "Access-Control-Allow-Methods": "OPTIONS,GET,POST"
         },
         statusCode: 200, 

@@ -1,5 +1,4 @@
-#! /usr/bin/bash
-set -e # stop completely if it fails at any point
+≈set -e # stop completely if it fails at any point
 
 CYAN='\033[1;36m'
 NO_COLOR='\033[0m'
