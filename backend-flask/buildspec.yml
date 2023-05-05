@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      docker: 19
+      docker: 20
     commands:
       - echo "cd into $CODEBUILD_SRC_DIR/backend-flask"
       - cd $CODEBUILD_SRC_DIR/backend-flask
@@ -28,18 +28,6 @@ env:
     CONTAINER_NAME: backend-flask
     IMAGE_URL: 539608377039.dkr.ecr.eu-central-1.amazonaws.com
     REPO_NAME: backend-flask:latest
-    AWS_COGNITO_USER_POOL_CLIENT_ID: 1rh8nhll9ifog492n1h45as38e
-    AWS_COGNITO_USER_POOL_ID: eu-central-1_vznQVkwgO
-    AWS_DEFAULT_REGION: eu-central-1
-    BACKEND_URL: https://api.opeoginni.cloud
-    FRONTEND_URL: https://opeoginni.cloud
-    OTEL_EXPORTER_OTLP_ENDPOINT: https://api.honeycomb.io
-    OTEL_SERVICE_NAME: backend-flask
-  parameter-store:
-    AWS_ACCESS_KEY_ID: "/cruddur/backend-flask/AWS_ACCESS_KEY_ID"
-    AWS_SECRET_ACCESS_KEY: "/cruddur/backend-flask/AWS_SECRET_ACCESS_KEY"
-    CONNECTION_URL: "/cruddur/backend-flask/CONNECTION_URL"
-    OTEL_EXPORTER_OTLP_HEADERS: "/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS"
 artifacts:
   files:
     - imagedefinitions.json
