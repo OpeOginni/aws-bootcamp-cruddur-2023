@@ -1,0 +1,9 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  Setup ECS Cluster 
+
+# Parameters:
+# Mappings:
+# Resources:
+# Outputs:
+# Metadata:
