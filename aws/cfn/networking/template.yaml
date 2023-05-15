@@ -1,4 +1,9 @@
 AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  The base networking components for our stack:
+  - VPC
+    - set DNS hostnames for EC2 instances
+    - Only IPV4, IPV6 is diable=
 
 Parameters:
   VpcCidrBlock:
