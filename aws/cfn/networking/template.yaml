@@ -3,7 +3,14 @@ Description: |
   The base networking components for our stack:
   - VPC
     - set DNS hostnames for EC2 instances
-    - Only IPV4, IPV6 is diable=
+    - Only IPV4, IPV6 is diabled
+  - InternetGatway
+  - Route Table
+    - route to the IGW
+    - route to Local
+  - 6 Subnets Explicitly Associated to Route Table
+    - 3 Public Subnets numnumberedber 1 to 3
+    - 3 Private Subnets numbered 1 to 3
 
 Parameters:
   VpcCidrBlock:
