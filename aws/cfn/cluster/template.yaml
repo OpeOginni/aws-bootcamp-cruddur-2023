@@ -75,6 +75,7 @@ Parameters:
   
 Resources:
   FargateCluster: #LogicalName
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-cluster.html
     Type: AWS::ECS::Cluster
     Properties:
       ClusterName: !Sub "${AWS::StackName}FargateCluster"
@@ -90,11 +91,13 @@ Resources:
       ServiceConnectDefaults:
         Namespace: cruddur
   ALB:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-loadbalancer.html
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       Name: !Sub "${AWS::StackName}ALB"
       Type: application
       IpAddressType: ipv4
+      # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-loadbalancer-loadbalancerattributes.html
       Scheme: internet-facing
       SecurityGroups:
         - !Ref ALBSG
@@ -131,6 +134,7 @@ Resources:
         - Type: forward
           TargetGroupArn: !Ref FrontendTG
   HTTPListener:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listener.html
     Type: AWS::ElasticLoadBalancingV2::Listener
     Properties:
       Protocol: HTTP
@@ -147,8 +151,8 @@ Resources:
             Path: "/#{path}"
             Query: "#{query}"
             StatusCode: "HTTP_301"
-
   ApiALBListnerRule:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
     Properties:
       Conditions:
@@ -162,6 +166,7 @@ Resources:
       ListenerArn: !Ref HTTPSListener
       Priority: 1
   ALBSG:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupName: !Sub "${AWS::StackName}AlbSG"
@@ -178,6 +183,7 @@ Resources:
           CidrIp: '0.0.0.0/0'
           Description: INTERNET HTTP
   FrontendTG:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       #Name: !Sub "${AWS::StackName}FrontendTG"
@@ -206,6 +212,7 @@ Resources:
         - Key: target-group-name
           Value: frontend
   BackendTG:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
     Properties:
       #Name: !Sub "${AWS::StackName}BackendTG"
