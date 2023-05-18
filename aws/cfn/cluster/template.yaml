@@ -87,7 +87,7 @@ Resources:
       Configuration:
         ExecuteCommandConfiguration:
           # KmsKeyId: !Ref KmsKeyId
-          Logging: Default
+          Logging: DEFAULT
       ServiceConnectDefaults:
         Namespace: cruddur
   ALB:
@@ -116,6 +116,7 @@ Resources:
         - Key: load_balancing.cross_zone.enabled
           Value: true
         - Key: access_logs.s3.enabled
+          Value: false
         # In-case we want to turn on logs
         # - Name: access_logs.s3.bucket
         #   Value: bucket-name
@@ -140,8 +141,6 @@ Resources:
       Protocol: HTTP
       Port: 80
       LoadBalancerArn: !Ref ALB
-      Certificates:
-        - CertificateArn: !Ref CertificateArn
       DefaultActions:
         - Type: redirect
           RedirectConfig:
@@ -171,6 +170,9 @@ Resources:
     Properties:
       GroupName: !Sub "${AWS::StackName}AlbSG"
       GroupDescription: Public Facing SG for out Cruddur ALB
+      VpcId:
+        Fn::ImportValue:
+          !Sub ${NetworkingStack}VpcId
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 443
