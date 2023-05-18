@@ -100,7 +100,7 @@ Resources:
       # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-loadbalancer-loadbalancerattributes.html
       Scheme: internet-facing
       SecurityGroups:
-        - !Ref ALBSG
+        - !GetAtt  ALBSG.GroupId
       Subnets:
         Fn::Split:
           - ","
