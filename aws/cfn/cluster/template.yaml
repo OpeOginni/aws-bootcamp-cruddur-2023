@@ -242,4 +242,8 @@ Resources:
       Tags:
         - Key: target-group-name
           Value: backend
-       # Outputs:
+Outputs:
+  ALBSecurityGroupId:
+    Value: !GetAtt ALBSG.GroupId
+    Export:
+      Name: !Sub "${AWS::StackName}ALBSecurityGroupId
