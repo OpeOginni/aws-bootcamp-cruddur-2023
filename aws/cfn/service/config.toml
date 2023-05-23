@@ -1,0 +1,4 @@
+[deploy]
+bucket = 'cfn-artifacts-opeoginni'
+region = 'eu-central-1'
+stack_name = 'CrdSrvBackendFlask'
