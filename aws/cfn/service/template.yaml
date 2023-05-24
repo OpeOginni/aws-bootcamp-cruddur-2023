@@ -13,7 +13,7 @@ Parameters:
   ClusterStack:
     Type: String
     Description: This is our cluster layer eg. ECS Cluster, ALB
-    Default: CrdCluter
+    Default: CrdCluster
   ContainerPort:
     Type: Number
     Default: 4567
@@ -97,8 +97,9 @@ Resources:
       HealthCheckGracePeriodSeconds: 0
       LaunchType: FARGATE
       LoadBalancers:
-      # TODO - UPDATE THIS
         - TargetGroupArn:
+            Fn::ImportValue:
+              !Sub "${ClusterStack}BackendTGArn"
           ContainerName: 'backend-flask'
           ContainerPort: !Ref ContainerPort
       NetworkConfiguration:
