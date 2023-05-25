@@ -1,12 +1,12 @@
 {
-    "cluster": "cruddur",
+    "cluster": "CrdClusterFargateCluster",
     "launchType": "FARGATE",
     "desiredCount": 1,
     "enableECSManagedTags": true,
     "enableExecuteCommand": true,
     "loadBalancers": [
         {
-            "targetGroupArn": "arn:aws:elasticloadbalancing:eu-central-1:539608377039:targetgroup/cruddur-backend-flask-tg/b1f89872627e81da",
+            "targetGroupArn": "arn:aws:elasticloadbalancing:eu-central-1:539608377039:targetgroup/CrdClu-Backe-ZLSNQF4RL6EN/e18f331c7810eb44",
             "containerName": "backend-flask",
             "containerPort": 4567
         }
@@ -18,9 +18,9 @@
           "sg-0b2778a07638e3c16"
         ],
         "subnets": [
-          "subnet-08ef669587f0f047e",
-          "subnet-0a90d83030899111c",
-          "subnet-094fa626d35c1dda8"
+          "subnet-058a50b09065f1c74",
+          "subnet-04b6285755171796c",
+          "subnet-0da189352b240626c"
         ]
       }
     },
