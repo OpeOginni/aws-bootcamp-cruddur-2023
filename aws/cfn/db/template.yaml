@@ -5,6 +5,14 @@ Description: |
   - Database Security Group
 
 Parameters:
+  NetworkingStack:
+    Type: String
+    Description: This is our base layer of networking components eg. VPC, Subnets
+    Default: CrdNet
+  ClusterStack:
+    Type: String
+    Description: This is our FargateCluster
+    Default: CrdCluster
   BackupRetentionPeriod:
     Type: Number
     Default: 0
@@ -28,16 +36,39 @@ Parameters:
     #  DB Proxy only supports very specific versions of Postgres
     #  https://stackoverflow.com/questions/63084648/which-rds-db-instances-are-supported-for-db-proxy
     Default: '15.2'
+  MasterUsername:
+    Type: String
+  MasterUserPassword:
+    Type: String
+    NoEcho: true
+  RDSPostgresSGPort:
+    Type: Number
+    Default: 5432
 Resources:
-  RDS
-    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html
+  RDSPostgresSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub "${AWS::StackName}AlbSG"
+      GroupDescription: Public Facing SG for out Cruddur ALB
+      VpcId:
+        Fn::ImportValue:
+          !Sub ${NetworkingStack}VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          SourceSecurityGroupId: 
+            Fn::ImportValue:
+              !Sub ${ClusterStack}SerivceSecurityGroupId
+          FromPort: !Ref RDSPostgresSGPort
+          ToPort: !Ref RDSPostgresSGPort
+          Description: ALB HTTP
+
   DBSubnetGroup:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbsubnetgroup.html
     Type: AWS::RDS::DBSubnetGroup
     Properties:
-      DBSubnetGroupDescription: 
-      SubnetIds:
-        - ""
-
+      DBSubnetGroupName: !Sub "${AWS::StackName}DBSubnetGroup"
+      DBSubnetGroupDescription: !Sub "${AWS::StackName}DBSubnetGroup"
+      SubnetIds: { 'Fn::Split' : [ ','  , { "Fn::ImportValue": { "Fn::Sub": "${NetworkingStack}PublicSubnetIds" }}] }
   Database:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbinstance.html
     Type: AWS::RDS::DBInstance
@@ -53,8 +84,9 @@ Resources:
       DBInstanceClass: !Ref DBInstanceClass
       DBInstanceIdentifier: !Ref DBInstanceIdentifier
       DBName: !Ref DBName
-      DBSubnetGroupName: !Ref DBSubnetGroupName
+      DBSubnetGroupName: !Ref DBSubnetGroup
       EnablePerformanceInsights: true
+      DeletionProtection: !Ref DeletionProtection
       Engine: postgres
       EngineVersion: !Ref EngineVersion
 
@@ -66,7 +98,7 @@ Resources:
       MasterUserPassword: !Ref MasterUserPassword
       PubliclyAccessible: true
       VPCSecurityGroups:
-        - !GetAtt 
+        - !GetAtt RDSPostgresSG.GroupId
 
 # Outputs:
 #   VpcId:

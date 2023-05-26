@@ -57,9 +57,9 @@ Parameters:
   BackendHealthCheckPath:
     Type: String
     Default: "/api/health-check"
-  BackendHealthCheckPort:
+  UpdatedBackendHealthCheckPort:
     Type: String
-    Default: 80
+    Default: 4567
   BackendHealthCheckProtocol:
     Type: String
     Default: HTTP
@@ -184,6 +184,22 @@ Resources:
           ToPort: 80
           CidrIp: '0.0.0.0/0'
           Description: INTERNET HTTP
+  # We have to create this SG before the service so we can pass it to the Databse SG
+  ServiceSG:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-security-group.html
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupName: !Sub "${AWS::StackName}ServSG"
+      GroupDescription: Security Group for Fargate Services for Cruddur
+      VpcId:
+        Fn::ImportValue:
+          !Sub ${NetworkingStack}VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          SourceSecurityGroupId: !GetAtt ALBSG.GroupId
+          FromPort: !Ref BackendPort
+          ToPort: !Ref BackendPort
+          Description: ALB HTTP
   FrontendTG:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-targetgroup.html
     Type: AWS::ElasticLoadBalancingV2::TargetGroup
@@ -223,7 +239,7 @@ Resources:
       HealthCheckProtocol: !Ref BackendHealthCheckProtocol
       HealthCheckIntervalSeconds: !Ref BackendHealthCheckIntervalSeconds
       HealthCheckPath: !Ref BackendHealthCheckPath
-      HealthCheckPort: !Ref BackendHealthCheckPort
+      HealthCheckPort: !Ref UpdatedBackendHealthCheckPort
       HealthCheckTimeoutSeconds: !Ref BackendHealthCheckTimeoutSeconds
       HealthyThresholdCount: !Ref BackendHealthyThresholdCount
       UnhealthyThresholdCount: !Ref BackendUnhealthyThresholdCount
@@ -247,6 +263,10 @@ Outputs:
     Value: !Ref FargateCluster
     Export:
       Name: !Sub "${AWS::StackName}ClusterName"
+  SerivceSecurityGroupId:
+    Value: !GetAtt ServiceSG.GroupId
+    Export:
+      Name: !Sub "${AWS::StackName}SerivceSecurityGroupId"
   ALBSecurityGroupId:
     Value: !GetAtt ALBSG.GroupId
     Export:
