@@ -13,11 +13,15 @@ Parameters:
   Timeout:
     Type: Number
     Default: 3
+  DeletionProtectionEnabled:
+    Type: String
+    Default: false
 Resources:
   DynamoDBTable:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html
     Type: AWS::DynamoDB::Table
-    Properties:
-      AttributeDefinitions:
+    Properties: 
+      AttributeDefinitions: 
         - AttributeName: message_group_uuid
           AttributeType: S
         - AttributeName: pk
@@ -25,26 +29,26 @@ Resources:
         - AttributeName: sk
           AttributeType: S
       TableClass: STANDARD 
-      KeySchema:
+      KeySchema: 
         - AttributeName: pk
           KeyType: HASH
         - AttributeName: sk
           KeyType: RANGE
-      ProvisionedThroughput:
+      ProvisionedThroughput: 
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
       BillingMode: PROVISIONED
-      DeletionProtectionEnabled: true
+      DeletionProtectionEnabled: !Ref DeletionProtectionEnabled
       GlobalSecondaryIndexes:
         - IndexName: message-group-sk-index
           KeySchema:
             - AttributeName: message_group_uuid
               KeyType: HASH
             - AttributeName: sk
-              KeyType: HASH
+              KeyType: RANGE
           Projection:
             ProjectionType: ALL
-          ProvisionedThroughput:
+          ProvisionedThroughput: 
             ReadCapacityUnits: 5
             WriteCapacityUnits: 5
       StreamSpecification:
@@ -53,7 +57,7 @@ Resources:
     # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: aws/lambdas/cruddur-messaging-stream
+      CodeUri: cruddur-messaging-stream
       PackageType: Zip
       Handler: lambda_handler
       Runtime: !Ref PythonRuntime
@@ -70,6 +74,16 @@ Resources:
             # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-dynamodb.html#sam-function-dynamodb-startingposition
             # TODO - This this the right value?
             StartingPosition: LATEST
+  LambdaLogGroup:
+    Type: "AWS::Logs::LogGroup"
+    Properties:
+      LogGroupName: "/aws/lambda/cruddur-messaging-stream00"
+      RetentionInDays: 14
+  LambdaLogStream:
+    Type: "AWS::Logs::LogStream"
+    Properties:
+      LogGroupName: !Ref LambdaLogGroup
+      LogStreamName: "LambdaExecution"
   ExecutionRole:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
     Type: AWS::IAM::Role
