@@ -6,6 +6,13 @@ TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/template.yaml"
 CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/ddb/config.toml"
 ARTIFACT_BUCKET="cfn-artifacts-opeoginni"
 
+sam validate -t $TEMPLATE_PATH
+
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-build.html
+# --use-container
+# use container is for building the lambda in a container
+# it's still using the runetimes and its not a custom runtime
+echo "== bulild"
 sam build \
 --use-container \
 --config-file $CONFIG_PATH \
@@ -13,10 +20,10 @@ sam build \
 --base-dir $FUNC_DIR 
 # --parameter-overrides 
 
-TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/template.yaml"
 OUTPUT_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yaml"
 
-
+echo "== package"
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-package.html
 sam package \
   --s3-bucket $ARTIFACT_BUCKET \
   --config-file $CONFIG_PATH \
@@ -26,10 +33,12 @@ sam package \
 
 PACKAGED_TEMPLATE_PATH="/workspace/aws-bootcamp-cruddur-2023/.aws-sam/build/packaged.yaml"
 
+echo "== deploy"
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-cli-command-reference-sam-deploy.html
 sam deploy \
   --template-file $PACKAGED_TEMPLATE_PATH \
   --config-file $CONFIG_PATH \
   --stack-name "CrdDdb" \
   --tags group=cruddur-ddb \
-  --capabilities "CAPABILITY_IAM"
+  --capabilities "CAPABILITY_NAMED_IAM"
 
