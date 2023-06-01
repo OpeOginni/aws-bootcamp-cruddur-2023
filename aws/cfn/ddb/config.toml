@@ -1,9 +1,9 @@
-versoion=0.1
-[default.package.parameters]
+version=0.1
+[default.build.parameters]
 region = "eu-central-1"
 
 [default.package.parameters]
 region = "eu-central-1"
 
 [default.deploy.parameters]
-region = "eu-central-1
+region = "eu-central-1"
