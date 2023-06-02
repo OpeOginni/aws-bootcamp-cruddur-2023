@@ -182,7 +182,6 @@ Resources:
               ValueFrom: !Ref SecretsConnectionUrl
             - Name: 'OTEL_EXPORTER_OTLP_HEADERS'
               ValueFrom: !Ref SecretsOtelExporterOltpHeaders
-
   ExecutionRole:
     # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-role.html
     Type: AWS::IAM::Role
@@ -245,3 +244,10 @@ Resources:
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/CloudWatchLogsFullAccess
         - arn:aws:iam::aws:policy/AWSXRayDaemonWriteAccess
+Outputs:
+  ServiceName:
+    Value: !GetAtt  FargateService.Name
+    Export: 
+      Name: !Sub "${AWS::StackName}ServiceName"
+
+  
