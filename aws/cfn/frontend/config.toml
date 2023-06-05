@@ -1,4 +1,9 @@
 [deploy]
 bucket = 'cfn-artifacts-opeoginni'
 region = 'eu-central-1'
-stack_name = 'CrdFrontend
+stack_name = 'CrdFrontend'
+
+[parameters]
+CertificateArn = 'arn:aws:acm:us-east-1:539608377039:certificate/cec73941-b141-4bd7-8cb9-19176e90437b'
+WwwBucketName = 'www.opeoginni.cloud'
+RootBucketName = 'opeoginni.cloud'
