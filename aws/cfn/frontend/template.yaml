@@ -1,0 +1,45 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: |
+  - CloudFront Distribution
+  - S3 Bucker for www.
+  - S3 Bucket for naked domain
+
+Parameters:
+  WwwBucketName:
+    Type: String
+    Default: www.opeoginni.cloud
+  NakedBuketName:
+    Type: String
+    Default: wwww.opeoginni.cloud
+  
+
+Resources:
+  # This wil redirect to the naked domain
+  WWWBucket:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html
+    Type: 'AWS::S3::Bucket'
+    # DeletionPolicy: Retain
+    Properties:
+      BucketName: !Ref WwwBucketName
+      WebsiteConfiguration:
+        RedirectAllRequestsTo:
+          HostName: !Ref NakedBucketName
+
+
+  NakedBucket:
+    # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html
+    Type: 'AWS::S3::Bucket'
+    # DeletionPolicy: Retain
+    Properties:
+      BucketName: !Ref NakedBucketName
+      WebsiteConfiguration:
+        IndexDocument: index.js
+        ErrorDocument: error.js
+  Distribution:
+    Type: 'AWS::CloudFront::Distibution'
+    Properties:
+      DistributionConfig: 
+        CacheBehaviors:
+          - PathPattern: 
+            TargetOriginId: 
+            ViewerProtocolPolicy: 
