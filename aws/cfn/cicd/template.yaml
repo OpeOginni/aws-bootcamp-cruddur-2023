@@ -88,6 +88,10 @@ Resources:
                 ClusterName:
                   Fn::ImportValue:
                     !Sub ${ClusterStack}ClusterName
+                # We decided not to use a cross-stack so we can tear
+                # down a service independently.
+                # I don't need to tear it down, but will still leave the change
+                # ServiceName: backend-flask
                 ServiceName:
                   Fn::ImportValue:
                     !Sub ${ServiceStack}ServiceName
