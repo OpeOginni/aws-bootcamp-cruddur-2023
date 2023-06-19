@@ -31,6 +31,9 @@ class CreateActivity:
     if user_handle == None or len(user_handle) < 1:
       model['errors'] = ['user_handle_blank']
 
+    # if cognito_user_id == None or len(cognito_user_id) < 1:
+    #   model['errors'] = ['cognito_user_id_blank']
+
     if message == None or len(message) < 1:
       model['errors'] = ['message_blank'] 
     elif len(message) > 280:
