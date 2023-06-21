@@ -17,7 +17,7 @@ from services.create_message import *
 from services.show_activity import *
 from services.update_profile import *
 
-from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError
+from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError, jwt_required
 
 # HoneyComb --------
 from opentelemetry import trace
@@ -214,10 +214,20 @@ def data_create_message():
     data = HomeActivities.run()
     return {}, 401
 
+
+def handle_token_error(e):
+  #   # unathenticated request
+  app.logger.debug(e)
+  app.logger.debug("unauthenicated")
+  data = HomeActivities.run()
+  return data, 200
+
 @app.route("/api/activities/home", methods=['GET'])
   # New Method
   # Middleware that checks the jwt and passes the info to a request param aclled claims
 @verify_jwt("home_activities_endpoint")
+
+@jwt_required(on_error=default_home_feed)
 def data_home():
 
   # Old Method
@@ -237,9 +247,12 @@ def data_home():
   #   data = HomeActivities.run()
   #   #data = HomeActivities.run(Logger=LOGGER)
   # return data, 200
-  data = HomeActivities.run(request.claims)
-  app.logger.debug("########################")
-  app.logger.debug(request.claims)
+
+  # data = HomeActivities.run(request.claims)
+  # app.logger.debug("########################")
+  # app.logger.debug(request.claims)
+
+  data = HomeActivities.run(cognito_user_id=g.cognito_user_id)
 
   return data, 200
 
