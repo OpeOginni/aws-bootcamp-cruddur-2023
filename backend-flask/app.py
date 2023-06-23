@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import request
+from flask import request, g
 from flask_cors import CORS, cross_origin
 import os
 import sys
@@ -17,7 +17,7 @@ from services.create_message import *
 from services.show_activity import *
 from services.update_profile import *
 
-from lib.cognito_jwt_token import CognitoJwtToken, extract_access_token, TokenVerifyError, jwt_required
+from lib.cognito_jwt_token import jwt_required
 
 # HoneyComb --------
 from opentelemetry import trace
@@ -70,12 +70,6 @@ tracer = trace.get_tracer(__name__)
 # IMPORTANT PYTHON APP DECLARATION
 app = Flask(__name__)
 
-cognito_jwt_token = CognitoJwtToken(
-  user_pool_id= os.getenv('AWS_COGNITO_USER_POOL_ID'),
-  user_pool_client_id= os.getenv("AWS_COGNITO_USER_POOL_CLIENT_ID"),
-  region= os.getenv("AWS_DEFAULT_REGION")
-  )
-
 # X-RAY --------
 # XRayMiddleware(app, xray_recorder)
 
@@ -111,55 +105,35 @@ def health_check():
 # Using my verify_jwt middleware
 @verify_jwt("message_groups_endpoint")
 # This middleware passes the claim in the req and it can be obtained using request.claims
-
+@jwt_required()
 def data_message_groups():
 
-  if request.claims is not None:
-    try:
-      app.logger.debug("authenticated")
-      app.logger.debug(request.claims['sub'])
-      cognito_user_id = request.claims['sub']
-      model = MessageGroups.run(cognito_user_id=cognito_user_id)
-
-      if model['errors'] is not None:
-        return model['errors'], 422
-      else:
-        return model['data'], 200
-
-    except TokenVerifyError as e:
-      app.logger.debug('unauthenticated')
-      data = HomeActivities.run()
-      return {}, 401
+  if request.claims is not None: # If statement for my verify_juwt middleware
+    model = MessageGroups.run(cognito_user_id=g.cognito_user_id)
+    if model['errors'] is not None:
+      return model['errors'], 422
+    else:
+      return model['data'], 200
   else:
     app.logger.debug('unauthenticated')
     data = HomeActivities.run()
     return {}, 401
 
-
 @app.route("/api/messages/<string:message_group_uuid>", methods=['GET'])
-
+# Using my verify_jwt middleware
 @verify_jwt("message_group_endpoint")
-
+@jwt_required()
 def data_messages(message_group_uuid):
 
-  if request.claims is not None:
-    try:
-      app.logger.debug("authenticated")
-      app.logger.debug(request.claims['sub'])
-      cognito_user_id = request.claims['sub']
+  if request.claims is not None: # If statement for my verify_juwt middleware
       model = Messages.run(
-        cognito_user_id=cognito_user_id,
+        cognito_user_id=g.cognito_user_id,
         message_group_uuid=message_group_uuid
         )
       if model['errors'] is not None:
         return model['errors'], 422
       else:
         return model['data'], 200
-
-    except TokenVerifyError as e:
-      app.logger.debug('unauthenticated')
-      data = HomeActivities.run()
-      return {}, 401
   else:
     app.logger.debug('unauthenticated')
     data = HomeActivities.run()
@@ -167,55 +141,43 @@ def data_messages(message_group_uuid):
 
 @app.route("/api/messages", methods=['POST','OPTIONS'])
 @cross_origin()
-
+# Using my verify_jwt middleware
 @verify_jwt("post_message_endpoint")
-
-
+@jwt_required()
 def data_create_message():
   message_group_uuid   = request.json.get('message_group_uuid',None)
   user_receiver_handle = request.json.get('handle',None)
   message = request.json['message']
 
   if request.claims is not None:
-    try:
-      app.logger.debug("authenticated")
-      app.logger.debug(request.claims['sub'])
-      cognito_user_id = request.claims['sub']
-      if message_group_uuid == None:
-        # Create for the first time
-        app.logger.debug(message_group_uuid)
-        app.logger.debug(user_receiver_handle)
-        model = CreateMessage.run(
-          mode="create",
-          message=message,
-          cognito_user_id=cognito_user_id,
-          user_receiver_handle=user_receiver_handle
+    if message_group_uuid == None:
+      # Create for the first time
+      app.logger.debug(message_group_uuid)
+      app.logger.debug(user_receiver_handle)
+      model = CreateMessage.run(
+        mode="create",
+        message=message,
+        cognito_user_id=g.cognito_user_id,
+        user_receiver_handle=user_receiver_handle
         )
-      else:
-        # Push onto existing Message Group
-        model = CreateMessage.run(
-          mode="update",
-          message=message,
-          message_group_uuid=message_group_uuid,
-          cognito_user_id=cognito_user_id
+    else:
+      # Push onto existing Message Group
+      model = CreateMessage.run(
+        mode="update",
+        message=message,
+        message_group_uuid=message_group_uuid,
+        cognito_user_id=g.cognito_user_id
         )
-
-      if model['errors'] is not None:
-        return model['errors'], 422
-      else:
-        return model['data'], 200
-
-    except TokenVerifyError as e:
-      app.logger.debug('unauthenticated')
-      data = HomeActivities.run()
-      return {}, 401
+    if model['errors'] is not None:
+      return model['errors'], 422
+    else:
+      return model['data'], 200
   else:
     app.logger.debug('unauthenticated')
     data = HomeActivities.run()
     return {}, 401
 
-
-def handle_token_error(e):
+def default_home_feed(e):
   #   # unathenticated request
   app.logger.debug(e)
   app.logger.debug("unauthenicated")
@@ -226,7 +188,6 @@ def handle_token_error(e):
   # New Method
   # Middleware that checks the jwt and passes the info to a request param aclled claims
 @verify_jwt("home_activities_endpoint")
-
 @jwt_required(on_error=default_home_feed)
 def data_home():
 
@@ -284,27 +245,18 @@ def data_search():
 @cross_origin()
 def data_activities():
 
+  # This is a method I used to pass in the user handle to the create
+  # activities endpoint worked for me
+  user_handle  = request.json['user_handle']
+  message = request.json['message']
+  ttl = request.json['ttl']
+  model = CreateActivity.run(message, user_handle, ttl)
+  # model = CreateActivity.run(message, g.cognito_user_id, ttl)
+  if model['errors'] is not None:
+    return model['errors'], 422
+  else:
+    return model['data'], 200
 
-  # access_token = extract_access_token(request.headers)
-  try:
-    # claims = cognito_jwt_token.verify(access_token)
-    # cognito_user_id = claims["sub"]
-
-    # This is a method I used to pass in the user handle to the create
-    # activities endpoint worked for me
-    user_handle  = request.json['user_handle']
-    message = request.json['message']
-    ttl = request.json['ttl']
-    model = CreateActivity.run(message, user_handle, ttl)
-    # model = CreateActivity.run(message, cognito_user_id, ttl)
-    if model['errors'] is not None:
-      return model['errors'], 422
-    else:
-      return model['data'], 200
-  except TokenVerifyError as e:
-    # unauthenticated request
-    app.logger.debug(e)
-    return {}, 401
 @app.route("/api/activities/<string:activity_uuid>", methods=['GET'])
 def data_show_activity(activity_uuid):
   data = ShowActivity.run(activity_uuid=activity_uuid)
@@ -332,34 +284,22 @@ def data_users_short(handle):
 @cross_origin()
 
 # Still making use of my Verify JWT Middleware
-
 @verify_jwt("update_profile_endpoint")
-
+@jwt_required()
 def data_update_profile():
   bio          = request.json.get('bio',None)
   display_name = request.json.get('display_name',None)
   access_token = extract_access_token(request.headers)
-  app.logger.debug("########################")
-  app.logger.debug(request.claims)
-  try:
-    claims = cognito_jwt_token.verify(access_token)
-    cognito_user_id = request.claims['sub']
-    model = UpdateProfile.run(
-      cognito_user_id=cognito_user_id,
-      bio=bio,
-      display_name=display_name
+
+  model = UpdateProfile.run(
+    cognito_user_id=g.cognito_user_id,
+    bio=bio,
+    display_name=display_name
     )
-    if model['errors'] is not None:
+  if model['errors'] is not None:
       return model['errors'], 422
-    else:
-      return model['data'], 200
-  except TokenVerifyError as e:
-    # unauthenicatied request
-    app.logger.debug(e)
-    return {}, 401
-
-
-
+  else:
+    return model['data'], 200
 
 if __name__ == "__main__":
   app.run(debug=True)
