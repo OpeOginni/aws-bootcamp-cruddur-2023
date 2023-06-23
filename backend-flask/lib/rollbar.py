@@ -1,4 +1,4 @@
-from flask import got_request_exception
+from flask import got_request_exception, g
 from time import strftime
 import os
 import rollbar
