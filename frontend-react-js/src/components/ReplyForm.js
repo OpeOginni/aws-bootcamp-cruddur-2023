@@ -17,7 +17,8 @@ export default function ReplyForm(props) {
   }
 
   const onsubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault();      
+    console.log(props.activity)
     try {
       const backend_url = `${process.env.REACT_APP_BACKEND_URL}/api/activities/${props.activity.uuid}/reply`
       await getAccessToken()
@@ -25,10 +26,11 @@ export default function ReplyForm(props) {
       const res = await fetch(backend_url, {
         method: "POST",
         headers: {
-          'Accept': 'application/json',
+          'Authorization': `Bearer ${access_token}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          activity_uuid: props.activity.uuid,
           message: message
         }),
       });
