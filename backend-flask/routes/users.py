@@ -19,7 +19,7 @@ def load(app):
     @app.route("/api/activities/@<string:handle>", methods=['GET'])
     def data_handle(handle):
         model = UserActivities.run(handle)
-        return return_model(model)
+        return model_json(model)
 
     @app.route("/api/users/@<string:handle>/short", methods=['GET'])
     def data_users_short(handle):
