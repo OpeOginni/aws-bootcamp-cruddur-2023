@@ -83,11 +83,13 @@ export default function ProfileForm(props) {
       bio: bio,
       display_name: displayName
     }
-    post(url, payload_data,null, function(data){
+    post(url, payload_data,{
+      auth: false,
+      success: function(data){
       setBio(null)
       setDisplayName(null)
       props.setPopped(false)
-    })
+  }})
 
     //         method: "POST",
     // Previous CALL was a POST, Andrew made a mistake and called it a PUT```

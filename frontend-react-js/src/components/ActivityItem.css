@@ -7,6 +7,14 @@
 .activity_item:last-child {
   border-bottom: none;
 }
+ 
+a.activity_item {
+  text-decoration: none;
+}
+
+a.activity_item:hover {
+  background: rgba(255,255,255,0.15);
+}
 
 .replies {
   padding-left: 24px;

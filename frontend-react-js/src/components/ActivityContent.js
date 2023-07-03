@@ -16,7 +16,7 @@ export default function ActivityContent(props) {
   }
 
   return (
-    <div className='activity_content_wrap'>
+    <div className='activity_content_wrap' >
       <Link className='activity_avatar' to={`/@`+props.activity.handle}></Link>
       <div className='activity_content'>
         <div className='activity_meta'>

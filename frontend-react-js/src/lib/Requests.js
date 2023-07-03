@@ -1,64 +1,62 @@
-import { getAccessToken} from 'lib/CheckAuth'
+import { getAccessToken } from "lib/CheckAuth";
 
- async function request(method, url, payload_data, setErrors,success) {
-    if (setErrors !== null){
-        setErrors('')
-      }
-    try {
-      await getAccessToken()
-      const access_token = localStorage.getItem('access_token')
-      const attrs = {
-        method: method,
-        headers: {
-         'Authorization': `Bearer ${access_token}`,
-         'Content-Type': 'application/json'
-        },
+async function request(method, url, payload_data,options) {
+  if (options.hasOwnProperty('setErrors')) {
+    options.setErrors("");
+  }
+
+
+  try {
+    const attrs = {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
     };
 
-    if (method !== 'GET'){
-        attrs.body = JSON.stringify(payload_data)
+    if(options.hasOwnProperty('auth') && options.auth == true){
+      await getAccessToken();
+      const access_token = localStorage.getItem("access_token");
+      attrs.headers['Authorization'] = `Bearer ${access_token}`
     }
-      const res = await fetch(url,attrs)
-      let data = await res.json();
-      if (res.status === 200) {
-        success(data)
 
-      } else {
-        setErrors(data)
-        console.log(res, data)
+    if (method !== "GET") {
+      attrs.body = JSON.stringify(payload_data);
+    }
+    const res = await fetch(url, attrs);
+    let data = await res.json();
+    if (res.status === 200) {
+      options.success(data);
+    } else {
+      options.setErrors(data);
+      console.log(res, data);
+    }
+  } catch (err) {
+    if (err instanceof Response) {
+      console.log("HTTP error detected:", err.status); // Here you can see the status.
+      if (options.hasOwnProperty('setErrors')) {
+        options.setErrors([`generic_${err.status}`]); // Just an example. Adjust it to your needs.
       }
-    } catch (err) {
-        if (err instanceof Response) {
-            console.log('HTTP error detected:', err.status); // Here you can see the status.
-            if (setErrors !== null){
-                setErrors([`generic_${err.status}`]) // Just an example. Adjust it to your needs.
-              }
-        } else {
-            if (setErrors !== null){
-                setErrors([`generic_500`]) // For network errors or any other errors
-              }
-        }
+    } else {
+      if (options.hasOwnProperty('setErrors')) {
+        options.setErrors([`generic_500`]); // For network errors or any other errors
+      }
     }
+  }
 }
 
-export function post(url, payload_data, setErrors,success) {
-    request('POST', url, payload_data, setErrors,success)
-
+export function post(url, payload_data, options) {
+  request("POST", url, payload_data, options);
 }
 
-export function put(url, payload_data, setErrors,success) {
-    request('PUT', url, payload_data, setErrors,success)
-
+export function put(url, payload_data, options) {
+  request("PUT", url, payload_data, options);
 }
 
-export function get(url, setErrors,success) {
-    request('GET', url, null, setErrors,success)
-
+export function get(url, options) {
+  request("GET", url, null, options);
 }
 
-export function destroy(url, payload_data, setErrors,success) {
-    request('DELETE', url, payload_data, setErrors,success)
-
+export function destroy(url, payload_data, options) {
+  request("DELETE", url, payload_data, options);
 }
-
-

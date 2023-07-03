@@ -11,7 +11,8 @@ import MessageGroupsPage from './pages/MessageGroupsPage';
 import MessageGroupPage from './pages/MessageGroupPage';
 import MessageGroupNewPage from './pages/MessageGroupNewPage';
 import ConfirmationPage from './pages/ConfirmationPage';
-import React, { useEffect } from 'react';
+import ActivityShowPage from './pages/ActivityShowPage';
+import React from 'react';
 import {
   createBrowserRouter,
   RouterProvider
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
   {
     path: "/@:handle",
     element: <UserFeedPage />
+  },
+  {
+    path: "/@:handle/status/:activity_uuid",
+    element: <ActivityShowPage />
   },
   {
     path: "/messages",
