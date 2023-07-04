@@ -28,7 +28,7 @@ def load(app):
     def data_show_activities(handle, activity_uuid):
         data = ShowActivity.run(activity_uuid)
         # print(data)
-        return data[0], 200 # The type of data was an array so I had to return the first index
+        return data, 200 # The type of data was an array so I had to return the first index
 
     @app.route("/api/activities/<string:activity_uuid>", methods=['GET'])
     def data_show_activity(handle, activity_uuid):
