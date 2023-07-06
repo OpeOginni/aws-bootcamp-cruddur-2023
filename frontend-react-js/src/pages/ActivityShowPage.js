@@ -1,13 +1,13 @@
 import "./ActivityShowPage.css";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import DesktopNavigation from "components/DesktopNavigation";
 import DesktopSidebar from "components/DesktopSidebar";
 import ActivityForm from "components/ActivityForm";
 import ReplyForm from "components/ReplyForm";
 import Replies from "components/Replies";
-import ActivityItem from "components/ActivityItem";
+import ActivityShowItem from "components/ActivityShowItem";
 
 import { checkAuth } from "lib/CheckAuth";
 import { get } from "lib/Requests";
@@ -20,6 +20,11 @@ export default function ActivityShowPage() {
   const [replyActivity, setReplyActivity] = React.useState({});
   const [user, setUser] = React.useState(null);
   const dataFetchedRef = React.useRef(false);
+
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
 
   const params = useParams();
 
@@ -51,7 +56,7 @@ export default function ActivityShowPage() {
   let el_activity;
   if (activity !== null) {
     el_activity = (
-      <ActivityItem
+      <ActivityShowItem
         expanded={true}
         setReplyActivity={setReplyActivity}
         setPopped={setPoppedReply}
@@ -71,10 +76,14 @@ export default function ActivityShowPage() {
         <ReplyForm
           activity={replyActivity}
           popped={poppedReply}
+          setReplies={setReplies}
           setPopped={setPoppedReply}
         />
         <div className="activity_feed">
-          <div className="activity_feed_heading">
+          <div className="activity_feed_heading flex">
+            <div className="back" onClick={goBack}>
+              &larr;
+            </div>
             <div className="title">Crud</div>
           </div>
           {el_activity}

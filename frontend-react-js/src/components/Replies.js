@@ -13,7 +13,7 @@ export default function Replies(props) {
   } else {
     content = (
       <div className="activity_feed_collection">
-        {props.activities.map((activity) => {
+        {props.replies.map((activity) => {
           return (
             <ActivityItem
               setReplyActivity={props.setReplyActivity}
