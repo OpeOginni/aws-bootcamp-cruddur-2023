@@ -1,0 +1,3 @@
+- Make changese
+- Build Frontend with the command `./bin/frontend/static-build`
+- Sync to Cloudfront with the command `./bin/frontend/sync`

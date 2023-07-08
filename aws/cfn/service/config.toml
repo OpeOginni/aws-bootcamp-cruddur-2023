@@ -6,3 +6,4 @@ stack_name = 'CrdSrvBackendFlask'
 [parameters]
 EnvFrontendUrl = 'https://opeoginni.cloud'
 EnvBackendUrl = 'https://api.opeoginni.cloud'
+DDBMessageTable = 'CrdDdb-DynamoDBTable-OU3TSZYS41M2'
