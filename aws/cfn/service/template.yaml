@@ -67,7 +67,7 @@ Parameters:
     Default: 'arn:aws:ssm:eu-central-1:539608377039:parameter/cruddur/backend-flask/OTEL_EXPORTER_OTLP_HEADERS'
   DDBMessageTable:
     Type: String
-    Default: 'cruddur-messages'
+    Default: 'CrdDdb-DynamoDBTable-OU3TSZYS41M2'
 
 Resources:
   FargateService:
@@ -163,7 +163,7 @@ Resources:
               awslogs-region: !Ref AWS::Region
               awslogs-stream-prefix: !Ref ServiceName
           Environment:
-            - Name: DDB_MESSAGE_TABLE
+            - Name: 'DDB_MESSAGE_TABLE'
               Value: !Ref DDBMessageTable
             - Name: 'OTEL_SERVICE_NAME'
               Value: !Ref EnvOtelServiceName
