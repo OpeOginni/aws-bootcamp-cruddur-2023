@@ -36,8 +36,8 @@ export default function SignupPage() {
         window.location.href = `/confirm?email=${email}`
     } catch (error) {
         console.log(error);
-        setErrors(error.message)
-    }
+        setErrors([error.message]); // Making the Error that is aet into an array makes it possible for the <FormErrors /> commponent to map through it 
+      }
     return false
   }
 
