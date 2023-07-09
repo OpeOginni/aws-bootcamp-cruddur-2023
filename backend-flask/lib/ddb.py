@@ -16,8 +16,9 @@ class Ddb:
     return dynamodb
 
   def list_message_groups(client,my_user_uuid):
-      year = datetime.now().year
+      year = str(datetime.now().year)
       table_name = os.getenv("DDB_MESSAGE_TABLE")
+      print(table_name)
       query_params = {
         'TableName': table_name,
         'KeyConditionExpression': 'pk = :pk AND begins_with(sk,:year)',
@@ -50,7 +51,7 @@ class Ddb:
         })
       return results
   def list_messages(client,message_group_uuid):
-    year = datetime.now().year
+    year = str(datetime.now().year)
     table_name = os.getenv("DDB_MESSAGE_TABLE")
     query_params = {
       'TableName': table_name,
@@ -81,7 +82,7 @@ class Ddb:
     return results
 
   def create_message(client,message_group_uuid, message, my_user_uuid, my_user_display_name, my_user_handle):
-    created_at = datetime.now()
+    created_at = datetime.now().isoformat() # Using the `.isoformat()` method helps make the created_at period a string NOT the type datetime
     message_uuid = str(uuid.uuid4())
 
     record = {
