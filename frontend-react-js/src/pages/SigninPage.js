@@ -30,7 +30,7 @@ export default function SigninPage() {
           if (error.code === "UserNotConfirmedException") {
             window.location.href = "/confirm";
           }
-          setErrors([error.message]); // Making the Error that is aet into an array makes it possible for the <FormErrors /> commponent to map through it 
+          setErrors([error.message]); // Making the Error that is aet into an array makes it possible for the <FormErrors /> commponent to map through it
         });
     } catch (error) {}
     return false;
@@ -73,7 +73,7 @@ export default function SigninPage() {
             <button type="submit">Sign In</button>
           </div>
 
-          {/* Button to Sign In with Google 
+          {/* Button to Sign In with Google ..
           <div className='google-login'>
             <p className='or-google'> Or</p>
             <GoogleSignIn/>
