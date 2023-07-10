@@ -32,3 +32,4 @@ The `/journal` directory contains
 - [x] [Week 10](journal/week10.md)
 - [x] [Week 11](journal/week11.md)
 - [x] [Week X](journal/week-X.md)
+- [x] [Personal CleanUp](journal/P-CleanUp.md)
