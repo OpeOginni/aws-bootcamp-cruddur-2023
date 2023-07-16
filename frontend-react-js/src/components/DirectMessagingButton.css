@@ -1,0 +1,15 @@
+.button_container {
+    padding-right: 10px;
+    padding-top: 10px;
+}
+.icon {
+    fill: rgb(255, 255, 255, 0.5);
+    width: 34px;
+    height: 34px;
+
+}
+
+.icon:hover {
+    fill: rgb(149, 0, 255) !important;
+    cursor: pointer;
+}

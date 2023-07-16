@@ -4,6 +4,6 @@
       users.handle = <USER_HANDLE>;
 
 UPDATE public.users 
-SET uuid = '76c4a260-ae73-4ab9-b3c0-c946566bdec2'
-WHERE users.handle = 'opeoginni';
+SET uuid = 'a6dddc4b-f617-4aaf-8bb3-adfccc8314ca'
+WHERE users.handle = 'this_guy';
 

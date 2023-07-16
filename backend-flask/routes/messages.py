@@ -14,6 +14,7 @@ from lib.helpers import model_json
 from services.create_message import *
 from services.messages import *
 from services.message_groups import *
+from services.message_group_exist import *
 
 
 def load(app):
@@ -24,7 +25,7 @@ def load(app):
     @jwt_required()
     def data_message_groups():
 
-        if request.claims is not None: # If statement for my verify_juwt middleware
+        if request.claims is not None:  # If statement for my verify_juwt middleware
             model = MessageGroups.run(cognito_user_id=g.cognito_user_id)
             return model_json(model)
         else:
@@ -38,10 +39,10 @@ def load(app):
     @jwt_required()
     def data_messages(message_group_uuid):
 
-        if request.claims is not None: # If statement for my verify_juwt middleware
+        if request.claims is not None:  # If statement for my verify_juwt middleware
             model = Messages.run(
-            cognito_user_id=g.cognito_user_id,
-            message_group_uuid=message_group_uuid
+                cognito_user_id=g.cognito_user_id,
+                message_group_uuid=message_group_uuid
             )
             return model_json(model)
         else:
@@ -49,14 +50,14 @@ def load(app):
             data = HomeActivities.run()
             return {}, 401
 
-    @app.route("/api/messages", methods=['POST','OPTIONS'])
+    @app.route("/api/messages", methods=['POST', 'OPTIONS'])
     @cross_origin()
     # Using my verify_jwt middleware
     @verify_jwt("post_message_endpoint")
     @jwt_required()
     def data_create_message():
-        message_group_uuid   = request.json.get('message_group_uuid',None)
-        user_receiver_handle = request.json.get('handle',None)
+        message_group_uuid = request.json.get('message_group_uuid', None)
+        user_receiver_handle = request.json.get('handle', None)
         message = request.json['message']
 
         if request.claims is not None:
@@ -69,7 +70,7 @@ def load(app):
                     message=message,
                     cognito_user_id=g.cognito_user_id,
                     user_receiver_handle=user_receiver_handle
-                    )
+                )
             else:
                 # Push onto existing Message Group
                 model = CreateMessage.run(
@@ -77,8 +78,30 @@ def load(app):
                     message=message,
                     message_group_uuid=message_group_uuid,
                     cognito_user_id=g.cognito_user_id
-                    )
+                )
             return model_json(model)
+        else:
+            app.logger.debug('unauthenticated')
+            data = HomeActivities.run()
+            return {}, 401
+
+    @app.route("/api/messages/exist/<string:receiver_user_handle>", methods=['GET'])
+    @cross_origin()
+    # Using my verify_jwt middleware
+    @verify_jwt("message_group_exist")
+    @jwt_required()
+    def data_messages(receiver_user_handle):
+
+        if request.claims is not None:  # If statement for my verify_juwt middleware
+            model = MessageGroupExist.run(
+                cognito_user_id=g.cognito_user_id,
+            )
+
+            messages = model['data']
+            for message in messages:
+                if message['handle'] == receiver_user_handle:
+                    return {'exists': 'true', 'message_group_uuid': message['uuid']}
+            return {'exists': 'false'}
         else:
             app.logger.debug('unauthenticated')
             data = HomeActivities.run()
