@@ -1,0 +1,9 @@
+    UPDATE public.users
+    SET uuid = <PROD_UUID>
+    WHERE
+      users.handle = <USER_HANDLE>;
+
+UPDATE public.users 
+SET uuid = '76c4a260-ae73-4ab9-b3c0-c946566bdec2'
+WHERE users.handle = 'opeoginni';
+
