@@ -23,9 +23,8 @@ export default function DesktopNavigation(props) {
       url="/messages"
       name="Messages"
       handle="messages" 
-      active={props.active} />
+      active={props.active} />;
     profileLink = <DesktopNavigationLink 
-    // Removed the hardcoded profile user
       url={`/@${props.user.handle}`}
       name="Profile"
       handle="profile"

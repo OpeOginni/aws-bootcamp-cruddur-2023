@@ -44,9 +44,52 @@ export default function UserFeedPage() {
     checkAuth(setUser);
   }, []);
 
+  let profileHeading;
+
+  let desktopNavigation;
+
+  // This makes the Profile heading to only render when the User and Profile Detail has been fetched
+  if (profile && user) {
+    profileHeading = (
+      <ProfileHeading
+        setPopped={setPoppedProfile}
+        user={user}
+        profile={profile}
+      />
+    );
+
+    if (profile.cognito_user_uuid == user.cognito_user_uuid) {
+      desktopNavigation = (
+        <DesktopNavigation
+          user={user}
+          active={"profile"}
+          setPopped={setPopped}
+        />
+      );
+    } else {
+      desktopNavigation = (
+        <DesktopNavigation user={user} setPopped={setPopped} />
+      );
+    }
+  }
+
+  if (profile && user) {
+    profileHeading = (
+      <ProfileHeading
+        setPopped={setPoppedProfile}
+        user={user}
+        profile={profile}
+      />
+    );
+  }
+
   return (
     <article>
-      <DesktopNavigation user={user} active={"profile"} setPopped={setPopped} />
+      {/* 
+      Only when you view your profile will the Profile Link Glow
+      It wont glow when you are viewing the profile of others
+       */}
+      {desktopNavigation}
       <div className="content">
         <ActivityForm popped={popped} setActivities={setActivities} />
 
@@ -57,7 +100,7 @@ export default function UserFeedPage() {
         />
 
         <div className="activity_feed">
-          <ProfileHeading setPopped={setPoppedProfile} profile={profile} />
+          {profileHeading}
           <ActivityFeed title={params.handle} activities={activities} />
         </div>
       </div>
