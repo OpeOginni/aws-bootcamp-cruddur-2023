@@ -50,6 +50,6 @@ jobs:
         env:
           SYNC_S3_BUCKET: opeoginni.cloud
           SYNC_CLOUDFRONT_DISTRUBTION_ID: EQA2Z7B6R930K
-          SYNC_BUILD_DIR: /frontend-react-js/build
-          SYNC_OUTPUT_CHANGESET_PATH: /tmp/changeset.json
+          SYNC_BUILD_DIR: frontend-react-js/build
+          SYNC_OUTPUT_CHANGESET_PATH: tmp/changeset.json
           SYNC_AUTO_APPROVE: false
