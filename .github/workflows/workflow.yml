@@ -46,6 +46,6 @@ jobs:
       - name: Create sync.env file
         run: ./bin/frontend/generate-env
       - name: Run Static Build
-        run: ./bin/frontend/static-build
+        run: ./bin/frontend/static-build-prod
       - name: Sync Frontend
         run: ./bin/frontend/sync
