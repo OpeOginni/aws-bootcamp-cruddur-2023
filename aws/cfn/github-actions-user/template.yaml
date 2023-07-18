@@ -32,6 +32,7 @@ Resources:
           - Effect: Allow
             Action:
               - acm:ListCertificates
+              - cloudfront:*
               - cloudfront:CreateInvalidation
               - cloudfront:GetDistribution
               - cloudfront:UpdateDistribution

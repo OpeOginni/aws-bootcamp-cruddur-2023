@@ -45,10 +45,8 @@ jobs:
         run: export THEIA_WORKSPACE_ROOT=/aws-bootcamp-cruddur-2023
       - name: Create sync.env file
         run: ./bin/frontend/generate-env
-      - name: Run Static Build
-        run: ./bin/frontend/static-build-prod
-      - name: Sync Frontend
-        run: ./bin/frontend/sync
+      - name: Run Static Build and Sync Frontend
+        run: ./bin/frontend/static-build-prod && ./bin/frontend/sync
         env:
           SYNC_S3_BUCKET: opeoginni.cloud
           SYNC_CLOUDFRONT_DISTRUBTION_ID: EQA2Z7B6R930K
