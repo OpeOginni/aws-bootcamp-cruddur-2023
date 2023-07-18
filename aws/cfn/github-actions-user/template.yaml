@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  CrdGithubActionsUser:
+    Type: 'AWS::IAM::User'
+    Properties: 
+      UserName: 'cruddur_github_actions'
+  AmazonS3GitHubAccess: 
+    Type: 'AWS::IAM::Policy'
+    Properties: 
+      PolicyName: 'AmazonS3GitHubAccess'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement: 
+          - Effect: Allow
+            Action: 
+              - s3:*
+              - s3-object-lambda:*
+            Resource: '*'
+      Users:
+        - !Ref CrdGithubActionsUser
+  CloudFrontGitHubAccess: 
+    Type: 'AWS::IAM::Policy'
+    Properties: 
+      PolicyName: 'CloudFrontGitHubAccess'
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement: 
+          - Effect: Allow
+            Action: 
+              - s3:ListAllMyBuckets
+            Resource: 'arn:aws:s3:::*'
+          - Effect: Allow
+            Action:
+              - acm:ListCertificates
+              - cloudfront:*
+              - iam:ListServerCertificates
+            Resource: '*'
+          - Effect: Allow
+            Action:
+              - iam:ListRoles
+            Resource: 'arn:aws:iam::*:*'
+      Users:
+        - !Ref CrdGithubActionsUser

@@ -1,8 +1,8 @@
 #! /usr/bin/env bash
 set -e #stops the execution of the script if it fails
 
-CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/machine-user/template.yaml"
-CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/machine-user/config.toml"
+CFN_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/github-actions-user/template.yaml"
+CONFIG_PATH="/workspace/aws-bootcamp-cruddur-2023/aws/cfn/github-actions-user/config.toml"
 cfn-lint $CFN_PATH
 
 
@@ -15,9 +15,9 @@ STACK_NAME=$(cfn-toml key deploy.stack_name -t $CONFIG_PATH)
 aws cloudformation deploy \
   --stack-name $STACK_NAME \
   --s3-bucket $BUCKET \
-  --s3-prefix machine-user \
+  --s3-prefix github-actions-user\
   --region $REGION \
   --template-file "$CFN_PATH" \
   --no-execute-changeset \
-  --tags group=cruddur-machine-user \
+  --tags group=cruddur-github-actions-user \
   --capabilities CAPABILITY_NAMED_IAM
