@@ -2,15 +2,13 @@
 
 FRONTEND_REACT_JS_PATH="frontend-react-js"
 
-ls
-
 cd $FRONTEND_REACT_JS_PATH
-
-ls
+npm ci
 
 REACT_APP_BACKEND_URL="https://api.opeoginni.cloud" \
 REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
 REACT_APP_AWS_COGNITO_REGION="$AWS_DEFAULT_REGION" \
 REACT_APP_AWS_USER_POOLS_ID="eu-central-1_vznQVkwgO" \
 REACT_APP_CLIENT_ID="1rh8nhll9ifog492n1h45as38e" \
+DISABLE_ESLINT_PLUGIN=true \
 npm run build
