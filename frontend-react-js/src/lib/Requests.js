@@ -14,7 +14,7 @@ async function request(method, url, payload_data,options) {
       },
     };
 
-    if(options.hasOwnProperty('auth') && options.auth == true){
+    if(options.hasOwnProperty('auth') && options.auth === true){
       await getAccessToken();
       const access_token = localStorage.getItem("access_token");
       attrs.headers['Authorization'] = `Bearer ${access_token}`

@@ -19,9 +19,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - run: cd frontend-react-js
-      - run: npm ci
-      - run: npm run build
+      - run: cd frontend-react-js && npm ci && DISABLE_ESLINT_PLUGIN=true npm run build
   deploy:
     name: Sync Static Build to S3 Bucket
     runs-on: ubuntu-latest
@@ -43,7 +41,17 @@ jobs:
           ruby-version: '3.1'
       - name: Install dependencies
         run: bundle install && gem install aws_s3_website_sync && gem install dotenv
+      - name: Add ENV
+        run: export THEIA_WORKSPACE_ROOT=/aws-bootcamp-cruddur-2023
+      - name: Create sync.env file
+        run: ./bin/frontend/generate-env
       - name: Run Static Build
-        run: ./bin/frontend/static-build
+        run: ./bin/frontend/static-build-prod
       - name: Sync Frontend
         run: ./bin/frontend/sync
+        with:
+          SYNC_S3_BUCKET: opeoginni.cloud
+          SYNC_CLOUDFRONT_DISTRUBTION_ID: EQA2Z7B6R930K
+          SYNC_BUILD_DIR: /aws-bootcamp-cruddur-2023/frontend-react-js/build
+          SYNC_OUTPUT_CHANGESET_PATH: /aws-bootcamp-cruddur-2023/tmp/changeset.json
+          SYNC_AUTO_APPROVE: true

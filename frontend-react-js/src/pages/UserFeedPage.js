@@ -58,7 +58,7 @@ export default function UserFeedPage() {
       />
     );
 
-    if (profile.cognito_user_uuid == user.cognito_user_uuid) {
+    if (profile.cognito_user_uuid === user.cognito_user_uuid) {
       desktopNavigation = (
         <DesktopNavigation
           user={user}
