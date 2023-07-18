@@ -2,7 +2,11 @@
 
 FRONTEND_REACT_JS_PATH="frontend-react-js"
 
+ls
+
 cd $FRONTEND_REACT_JS_PATH
+
+ls
 
 REACT_APP_BACKEND_URL="https://api.opeoginni.cloud" \
 REACT_APP_AWS_PROJECT_REGION="$AWS_DEFAULT_REGION" \
