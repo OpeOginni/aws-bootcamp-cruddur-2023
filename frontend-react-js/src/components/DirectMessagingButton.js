@@ -20,10 +20,10 @@ export default function DirectMessagingButton(props) {
   function redirect(data) {
     if (data.exists) {
       // Redirects to Existing Message Group
-      window.location.href = `${process.env.REACT_APP_FRONTEND_URL}/messages/${data.message_group_uuid}`;
+      window.location.href = `/messages/${data.message_group_uuid}`;
     } else {
       // Redirects to New Message Group
-      window.location.href = `${process.env.REACT_APP_FRONTEND_URL}/messages/new/${props.receiver.handle}`;
+      window.location.href = `/messages/new/${props.receiver.handle}`;
     }
   }
 
