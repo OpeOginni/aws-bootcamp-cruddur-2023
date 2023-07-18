@@ -39,11 +39,6 @@ jobs:
         uses: ruby/setup-ruby@ec02537da5712d66d4d50a0f33b7eb52773b5ed1
         with:
           ruby-version: '3.1'
-          SYNC_S3_BUCKET: opeoginni.cloud
-          SYNC_CLOUDFRONT_DISTRUBTION_ID: EQA2Z7B6R930K
-          SYNC_BUILD_DIR: /aws-bootcamp-cruddur-2023/frontend-react-js/build
-          SYNC_OUTPUT_CHANGESET_PATH: /aws-bootcamp-cruddur-2023/tmp/changeset.json
-          SYNC_AUTO_APPROVE: true
       - name: Install dependencies
         run: bundle install && gem install aws_s3_website_sync && gem install dotenv
       - name: Add ENV
@@ -54,3 +49,9 @@ jobs:
         run: ./bin/frontend/static-build-prod
       - name: Sync Frontend
         run: ./bin/frontend/sync
+        env:
+          SYNC_S3_BUCKET: opeoginni.cloud
+          SYNC_CLOUDFRONT_DISTRUBTION_ID: EQA2Z7B6R930K
+          SYNC_BUILD_DIR: /aws-bootcamp-cruddur-2023/frontend-react-js/build
+          SYNC_OUTPUT_CHANGESET_PATH: /aws-bootcamp-cruddur-2023/tmp/changeset.json
+          SYNC_AUTO_APPROVE: true
