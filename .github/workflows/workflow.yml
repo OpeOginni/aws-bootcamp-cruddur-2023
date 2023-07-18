@@ -41,6 +41,10 @@ jobs:
           ruby-version: '3.1'
       - name: Install dependencies
         run: bundle install && gem install aws_s3_website_sync && gem install dotenv
+      - name: Add ENV
+        run: export THEIA_WORKSPACE_ROOT=/aws-bootcamp-cruddur-2023
+      - name: Create sync.env file
+        run: ./bin/frontend/generate-env
       - name: Run Static Build
         run: ./bin/frontend/static-build
       - name: Sync Frontend
