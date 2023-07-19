@@ -1,5 +1,4 @@
 import "./DirectMessagingButton.css";
-
 import { ReactComponent as MessagesIcon } from "./svg/messages.svg";
 import { get } from "lib/Requests";
 
