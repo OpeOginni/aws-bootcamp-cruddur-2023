@@ -1,8 +1,6 @@
 name: Sync-Prod-Frontend
 
 on:
-  push:
-    branches: [ prod ]
   pull_request:
     branches: [ prod ]
 
