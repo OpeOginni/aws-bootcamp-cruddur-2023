@@ -6,7 +6,7 @@ import ProfileAvatar from "./ProfileAvatar";
 import { get } from "lib/Requests";
 
 export default function MessageItem(props) {
-  const [userUUID, setUserUUID] = React.useState("");
+  const [setuserCognitoId, setsetuserCognitoId] = React.useState("");
   const dataFetchedRef = React.useRef(false);
 
   const loadData = async () => {
@@ -14,8 +14,7 @@ export default function MessageItem(props) {
     get(url, {
       auth: true,
       success: function (data) {
-        console.log(data);
-        setUserUUID(data.uuid);
+        setsetuserCognitoId(data.cognito_user_id);
       },
     });
   };
@@ -28,7 +27,7 @@ export default function MessageItem(props) {
 
   return (
     <div className="message_item">
-        <ProfileAvatar className="message_avatar" id={userUUID} />
+      <ProfileAvatar className="message_avatar" id={setuserCognitoId} />
       <div className="message_content">
         <div className="message_meta">
           <div className="message_identity">
