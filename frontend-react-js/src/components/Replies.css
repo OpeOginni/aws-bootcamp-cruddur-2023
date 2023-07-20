@@ -1,0 +1,5 @@
+.reply_feed_collection {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(235, 235, 235, 0.149);
+}

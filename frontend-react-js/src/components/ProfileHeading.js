@@ -19,6 +19,13 @@ export default function ProfileHeading(props) {
   let editProfileButton;
   let directMessagingButton;
 
+  let profileAvatar;
+
+  if(props.profile.cognito_user_uuid){
+    profileAvatar = (        <ProfileAvatar id={props.profile.cognito_user_uuid} />
+    )
+  }
+
   //  This prevents Users from updating the profile of another User
   if (props.user.cognito_user_uuid == props.profile.cognito_user_uuid) {
     // If the user is the owner of the profile the edit profile button is rendered
@@ -34,7 +41,8 @@ export default function ProfileHeading(props) {
       <div className="cruds_count">{props.profile.cruds_count} Cruds</div>
 
       <div className="banner" style={styles}>
-        <ProfileAvatar id={props.profile.cognito_user_uuid} />
+        {/* <ProfileAvatar id={props.profile.cognito_user_uuid} /> */}
+        {profileAvatar}
       </div>
 
       <div className="info">

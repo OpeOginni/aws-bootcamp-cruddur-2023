@@ -33,6 +33,8 @@ export default function ReplyForm(props) {
       success: function (data) {
         if (props.setReplies) {
           props.setReplies((current) => [data, ...current]);
+          // Also Update the Reply Count
+          props.activity.replies_count += 1;
         }
 
         // reset and close the form
