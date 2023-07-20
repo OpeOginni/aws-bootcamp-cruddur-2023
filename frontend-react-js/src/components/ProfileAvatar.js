@@ -1,4 +1,5 @@
-import './ProfileAvatar.css';
+import "./ProfileAvatar.css";
+import React, { useState, useEffect } from "react";
 
 export default function ProfileAvatar(props) {
 

@@ -10,7 +10,7 @@ export default function ProfileForm(props) {
   const [bio, setBio] = React.useState('');
   const [displayName, setDisplayName] = React.useState('');
   const [errors, setErrors] = React.useState([]);
-
+  
 
   React.useEffect(()=>{        
     setBio(props.profile.bio || '');
@@ -26,6 +26,8 @@ export default function ProfileForm(props) {
       const json = {
         extension: extension,
       }
+
+
       const res = await fetch(gateway_url, {
         method: "POST",
         body: JSON.stringify(json),
@@ -85,7 +87,7 @@ export default function ProfileForm(props) {
       bio: bio,
       display_name: displayName
     }
-    put(url, payload_data,{
+    post(url, payload_data,{
       auth: false,
       success: function(data){
       setBio(null)

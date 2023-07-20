@@ -28,6 +28,13 @@
 
 .activity_main {
   padding: 16px;
+  border-bottom: solid 8px var(--fg);
+
+}
+
+.reply_main {
+  padding: 16px;
+  border-bottom: solid 8px var(--fg);
 }
 
 .activity_item .activity_actions {
@@ -64,6 +71,14 @@
 
 .activity_item .activity_actions .action:hover .icon {
   fill: rgb(149, 0, 255);
+}
+
+.activity_avatar {
+  height: 60px;
+  width: 60px;
+  border-radius: 999px;
+  border: solid 8px var(--fg);
+  background: rgb(149, 0, 255);
 }
 
 /* .activity_item.expanded .activity_content {

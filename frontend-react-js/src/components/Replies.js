@@ -12,7 +12,7 @@ export default function Replies(props) {
     );
   } else {
     content = (
-      <div className="activity_feed_collection">
+      <div className="reply_feed_collection">
         {props.replies.map((activity) => {
           return (
             <ActivityItem

@@ -1,4 +1,5 @@
 import "./ActivityItem.css";
+import React from "react";
 
 import ActivityActionReply from "../components/ActivityActionReply";
 import ActivityActionRepost from "../components/ActivityActionRepost";
@@ -8,8 +9,30 @@ import ActivityActionShare from "../components/ActivityActionShare";
 import { Link } from "react-router-dom";
 import { format_datetime, time_ago, time_future } from "../lib/DateTimeFormats";
 import { ReactComponent as BombIcon } from "./svg/bomb.svg";
+import ProfileAvatar from '../components/ProfileAvatar';
+import { get } from "lib/Requests";
 
 export default function ActivityItem(props) {
+
+  const [userUUID, setUserUUID] = React.useState("");
+  const dataFetchedRef = React.useRef(false);
+
+  const loadData = async () => {
+    const url = `${process.env.REACT_APP_BACKEND_URL}/api/users/@${props.activity.handle}/short`;
+    get(url, {
+      auth: true,
+      success: function (data) {
+        console.log(data);
+        setUserUUID(data.uuid);
+      },
+    });
+  };
+  React.useEffect(() => {
+    //prevents double call
+    if (dataFetchedRef.current) return;
+    dataFetchedRef.current = true;
+    loadData();
+  }, []);
   const attrs = {};
   attrs.className = "activity_item expanded";
 
@@ -17,10 +40,8 @@ export default function ActivityItem(props) {
     <div {...attrs}>
       <div className="activity_main">
         <div className="activity_content_wrap">
-        <Link
-              className="activity_avatar"
-              to={`/@` + props.activity.handle}
-            ></Link>
+        <ProfileAvatar className='activity_avatar' id={userUUID}/>
+
           <div className="activity_content">
 
             <div className="activity_meta">
