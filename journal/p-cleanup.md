@@ -10,6 +10,9 @@ These are the tasks I completed as my own determination to make my app look and 
 ✅ Better Direct Messaging Flow for Frontend
 ✅ Created User For GitHub Actions using CloudFormation
 ✅ Implemented Github Actions to Sync My Cloudfront frontend when I create a PR to `prod` branch
+✅ Worked on Replies
+✅ Improved Email Confirmation Flow
+✅ Display of User Avatar In Profile, Messages, Cruds and Replies
 ```
 
 ### ✅ Fixed DynamoDB Direct Messaging Bugs
@@ -114,3 +117,39 @@ I felt it was a Permissions Issue to the ActionsUser, and had to take a look at 
 
 <img src="screenshots/p-cleanup/p-cleanup_13.png" width="800" >
 
+### ✅ Worked on Replies
+
+- I worked on the HomePage SQL query to only return actual Cruds not Replies too, I made a little change to the SQL, [**COMMIT**](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/b19082edf8d93908ab9d04f8940a9cd0760c635f#diff-5c1a2b6b47243795c31c78ab3d3c6ff2032c31a174f9f58a7dc94313f86f239c).
+- Made an update to the Reply Endpoint and code, that increases the number of Replies shown on a Crud when a new reply is made, [**COMMIT**](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/c606b6e34f2d8e31e22fbbd9f216147e74800b7f#diff-244518b85d07c73fe8597784e2aeea14ec1d2fdb62d85f64bc03aef7e2aef71a). I did this by creating a new SQL file that increases the replies_count value, and I made come changes on the frontend that makes the value to be increased by 1 as the user submits the reply.
+
+### ✅ Improved Email Confirmation Flow
+
+I improved the flow when users are confirming their account, they don't have to put in their email address after signing up, it is done by react automatically, [**Confirmation Page Flow Improvement COMMIT**](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/8df3fff21cb9d2d66ec3a2122fcd066f84027cc1). 
+
+<img src="screenshots/p-cleanup/p-cleanup_16.gif" width="800" >
+
+
+### ✅ Display of User Avatar In Profile, Messages, Cruds and Replies
+
+This integration took a while and I had to do a lot of debuging, mostly because of CORS, I had to change the Allowed Origin URL for both the Uplaod Lamdba and the Uplaod S3 Bucket, in order to let requests from my site to be handled.
+
+**Updating CORS for Lambda**
+
+<img src="screenshots/p-cleanup/p-cleanup_14.png" width="800" >
+
+**Updating CORS for S3 Bucket**
+
+<img src="screenshots/p-cleanup/p-cleanup_15.png" width="800" >
+
+Lastly I had to make multiple changes on my frontend to display User Avatars in the places they are needed. Here are my commits:
+
+- [Add Reply Increase, Fixed Avatar Upload & Display](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/c606b6e34f2d8e31e22fbbd9f216147e74800b7f)
+- [Fixed Frontend Bugs](https://github.com/OpeOginni/aws-bootcamp-cruddur-2023/commit/9b4d031a22db42f703c59e52f84d285a0b2fb438)
+
+**Improved UI**
+
+<img src="screenshots/p-cleanup/p-cleanup_18.png" width="800" >
+
+**User Avater Redenring in Home Page and Replies**
+
+<img src="screenshots/p-cleanup/p-cleanup_17.gif" width="800" >

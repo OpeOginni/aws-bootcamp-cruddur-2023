@@ -1,4 +1,5 @@
 import "./MessageGroupItem.css";
+import React from "react";
 
 import { Link } from "react-router-dom";
 import { format_datetime, message_time_ago } from "../lib/DateTimeFormats";
@@ -17,7 +18,7 @@ export default function MessageGroupItem(props) {
     get(url, {
       auth: true,
       success: function (data) {
-        setsetuserCognitoId(data.cognito_user_uuid);
+        setsetuserCognitoId(data.cognito_user_id);
       },
     });
   };
