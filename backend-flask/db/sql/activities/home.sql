@@ -11,5 +11,7 @@ SELECT
 FROM
   public.activities
   LEFT JOIN public.users ON users.uuid = activities.user_uuid
+WHERE
+  activities.reply_to_activity_uuid IS NULL
 ORDER BY
   activities.created_at DESC
