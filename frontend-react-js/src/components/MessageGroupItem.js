@@ -18,7 +18,7 @@ export default function MessageGroupItem(props) {
     get(url, {
       auth: true,
       success: function (data) {
-        setsetuserCognitoId(data.cognito_user_uuid);
+        setsetuserCognitoId(data.cognito_user_id);
       },
     });
   };
