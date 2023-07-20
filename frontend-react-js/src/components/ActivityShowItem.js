@@ -9,12 +9,11 @@ import ActivityActionShare from "../components/ActivityActionShare";
 import { Link } from "react-router-dom";
 import { format_datetime, time_ago, time_future } from "../lib/DateTimeFormats";
 import { ReactComponent as BombIcon } from "./svg/bomb.svg";
-import ProfileAvatar from '../components/ProfileAvatar';
+import ProfileAvatar from "../components/ProfileAvatar";
 import { get } from "lib/Requests";
 
 export default function ActivityItem(props) {
-
-  const [userUUID, setUserUUID] = React.useState("");
+  const [setuserCognitoId, setsetuserCognitoId] = React.useState("");
   const dataFetchedRef = React.useRef(false);
 
   const loadData = async () => {
@@ -22,8 +21,7 @@ export default function ActivityItem(props) {
     get(url, {
       auth: true,
       success: function (data) {
-        console.log(data);
-        setUserUUID(data.uuid);
+        setsetuserCognitoId(data.cognito_user_id);
       },
     });
   };
@@ -40,10 +38,9 @@ export default function ActivityItem(props) {
     <div {...attrs}>
       <div className="activity_main">
         <div className="activity_content_wrap">
-        <ProfileAvatar className='activity_avatar' id={userUUID}/>
+          <ProfileAvatar className="activity_avatar" id={setuserCognitoId} />
 
           <div className="activity_content">
-
             <div className="activity_meta">
               <div
                 className="activity_identity"
